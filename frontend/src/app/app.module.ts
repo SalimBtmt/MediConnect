@@ -8,6 +8,13 @@ import { BodyComponent } from './body/body.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { PatientComponent } from './patient/patient.component';
 import { ConsultationsComponent } from './consultations/consultations.component';
+import { HeaderComponent } from './header/header.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -17,11 +24,14 @@ import { ConsultationsComponent } from './consultations/consultations.component'
     SidenavComponent,
     PatientComponent,
     ConsultationsComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    
+    MatCardModule,
+    MatTableModule, MatSortModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
