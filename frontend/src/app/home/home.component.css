@@ -1,0 +1,57 @@
+.container{
+    display: flex;
+    height: 100%;
+}
+
+.left{
+    flex-grow: 10;
+    margin-top: 2rem;
+}
+
+.left h2{
+    margin-bottom: 1rem;
+}
+
+.right{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 70%;
+    margin-top: 4rem;
+}
+
+mat-card{
+    display: flex;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+mat-card-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.card-content-left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.card-content-left i{
+    font-size: 35px;
+    margin-right: 1rem;
+}
+
+.card-content-right{
+    flex-grow: 2;
+}
+
+#number{
+    font-size: 30px;
+    font-weight: 500;
+}
