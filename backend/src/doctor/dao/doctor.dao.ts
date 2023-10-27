@@ -15,13 +15,13 @@ export class DoctorDao {
     ) {}
 
     find = (): Observable<Doctor[]> =>
-        from(this._doctorModel.find({})).pipe(map((doctor) => [].concat(doctor)));
+        from(this._doctorModel.find({}).lean()).pipe(map((doctor) => [].concat(doctor)));
 
     findById = (id: string): Observable<Doctor | void> =>
-        from(this._doctorModel.findById(id));
+        from(this._doctorModel.findById(id).lean());
     
       /**
-       * Check if doctor already exists with index and add it in people list
+       * Check if doctor already exists with index and add it in doctor list
        *
        * @param {CreateDoctorDto} doctor to create
        *
@@ -31,7 +31,7 @@ export class DoctorDao {
         from(new this._doctorModel(doctor).save());
     
       /**
-       * Update a doctor in people list
+       * Update a doctor in doctor list
        *
        * @param {string} id
        * @param {UpdateDoctorDto} doctor
@@ -50,7 +50,7 @@ export class DoctorDao {
         );
     
       /**
-       * Delete a doctor in people list
+       * Delete a doctor in doctor list
        *
        * @param {string} id
        *

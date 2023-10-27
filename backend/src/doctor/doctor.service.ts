@@ -62,7 +62,7 @@ export class DoctorService {
         !!doctor
             ? of(new DoctorEntity(doctor))
             : throwError(
-                () => new NotFoundException(`People with id '${id}' not found`),
+                () => new NotFoundException(`Doctor with id '${id}' not found`),
             ),
         ),
     );
@@ -84,7 +84,7 @@ export class DoctorService {
             ? throwError(
                 () =>
                 new ConflictException(
-                    `People with lastname '${doctor.lastname}' and firstname '${doctor.firstname}' already exists`,
+                    `Doctor with lastname '${doctor.lastname}' and firstname '${doctor.firstname}' already exists`,
                 ),
             )
             : throwError(() => new UnprocessableEntityException(e.message)),
@@ -107,7 +107,7 @@ export class DoctorService {
             ? throwError(
                 () =>
                 new ConflictException(
-                    `People with lastname '${doctor.lastname}' and firstname '${doctor.firstname}' already exists`,
+                    `Doctor with lastname '${doctor.lastname}' and firstname '${doctor.firstname}' already exists`,
                 ),
             )
             : throwError(() => new UnprocessableEntityException(e.message)),
@@ -116,7 +116,7 @@ export class DoctorService {
         !!doctorUpdated
             ? of(new DoctorEntity(doctorUpdated))
             : throwError(
-                () => new NotFoundException(`People with id '${id}' not found`),
+                () => new NotFoundException(`Doctor with id '${id}' not found`),
             ),
         ),
     );
@@ -151,14 +151,14 @@ export class DoctorService {
      *
      * @private
      */
-    private _findPeopleIndexOfList = (id: string): Observable<number> =>
+    private _findDoctorIndexOfList = (id: string): Observable<number> =>
     from(this._doctor).pipe(
         findIndex((doctor: Doctor) => doctor.id === id),
         mergeMap((index: number) =>
         index > -1
             ? of(index)
             : throwError(
-                () => new NotFoundException(`People with id '${id}' not found`),
+                () => new NotFoundException(`Doctor with id '${id}' not found`),
             ),
     ),
   );
