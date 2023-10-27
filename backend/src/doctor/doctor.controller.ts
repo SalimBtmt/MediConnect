@@ -11,12 +11,12 @@ import {
   } from '@nestjs/common';
 import { HttpInterceptor } from '../interceptors/http.interceptor';
 import { DoctorService } from './doctor.service';
-import { HandlerParams } from './validators/handler-params';
 import { Observable } from 'rxjs';
 import { Doctor } from './schemas/doctor.schema';
 import { DoctorEntity } from './entities/doctor.entity';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
+import { HandlerParams } from 'src/common/validators/handler-params';
 
 @Controller('doctor')
 @UseInterceptors(ClassSerializerInterceptor)

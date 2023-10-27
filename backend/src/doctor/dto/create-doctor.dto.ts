@@ -9,7 +9,7 @@ import {
     IsString,
     ValidateNested,
   } from 'class-validator';
-import { PersonAddressDto } from './person-address.dto';
+import { PersonAddressDto } from '../../common/dto/person-address.dto';
 import { Type } from 'class-transformer';
 
 export class CreateDoctorDto {

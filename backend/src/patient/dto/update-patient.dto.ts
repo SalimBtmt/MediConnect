@@ -9,10 +9,10 @@ import {
     IsString,
     ValidateNested,
   } from 'class-validator';
-import { PersonAddressDto } from '../../common/dto/person-address.dto';
 import { Type } from 'class-transformer';
+import { PersonAddressDto } from 'src/common/dto/person-address.dto';
 
-export class UpdateDoctorDto {
+export class UpdatePatientDto {
     @IsString()
     @IsNotEmpty()
     firstname: string;
@@ -20,11 +20,6 @@ export class UpdateDoctorDto {
     @IsString()
     @IsNotEmpty()
     lastname: string;
-
-    @IsString()
-    @IsNotEmpty()
-    @IsOptional()
-    specialty: string;
 
     @IsOptional()
     @IsEmail()
@@ -42,9 +37,5 @@ export class UpdateDoctorDto {
 
     @IsString()
     @IsNotEmpty()
-    username: string;
-
-    @IsString()
-    @IsNotEmpty()
-    password: string;
+    bloodtype: string;
 }
