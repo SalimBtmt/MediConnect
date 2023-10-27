@@ -5,6 +5,7 @@ import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 export type DoctorDocument = Doctor & Document;
 
 @Schema({
+  collection: 'doctors',
   toJSON: {
     virtuals: true,
     transform: (doc: any, ret: any) => {
@@ -102,3 +103,5 @@ export class Doctor {
 }
 
 export const DoctorSchema = SchemaFactory.createForClass(Doctor);
+
+DoctorSchema.index({ firstname: 1, lastname: 1 }, { unique: true });
