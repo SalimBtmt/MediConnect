@@ -1,9 +1,9 @@
 import { Exclude, Expose, Type } from 'class-transformer'
-import { PersonAddressEntity } from '../../common/entities/person-address.entity';
-import { Doctor } from '../schemas/doctor.schema';
+import { Patient } from '../schemas/patient.schema';
+import { PersonAddressEntity } from 'src/common/entities/person-address.entity';
 
 @Exclude()
-export class DoctorEntity {
+export class PatientEntity {
     @Expose()
     @Type(() => String)
     id: string;
@@ -15,10 +15,6 @@ export class DoctorEntity {
     @Expose()
     @Type(() => String)
     lastname: string;
-
-    @Expose()
-    @Type(() => String)
-    specialty: string;
 
     @Expose()
     @Type(() => String)
@@ -38,11 +34,12 @@ export class DoctorEntity {
 
     @Expose()
     @Type(() => String)
-    username: string;
-    
-    @Expose()
-    @Type(() => String)
-    password: string;
+    bloodtype: string;
+
+    // TODO
+    // @Expose()
+    // @Type(() => String)
+    // doctor: string;
 
 
       /**
@@ -50,7 +47,7 @@ export class DoctorEntity {
    *
    * @param partial data to insert in object instance
    */
-  constructor(partial: Partial<Doctor>) {
+  constructor(partial: Partial<Patient>) {
     Object.assign(this, partial);
   }
 }
