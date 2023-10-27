@@ -1,9 +1,22 @@
-import { ClassSerializerInterceptor, Controller, Get, UseInterceptors } from '@nestjs/common';
+import {
+    Body,
+    ClassSerializerInterceptor,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Post,
+    Put,
+    UseInterceptors,
+  } from '@nestjs/common';
 import { HttpInterceptor } from '../interceptors/http.interceptor';
 import { DoctorService } from './doctor.service';
+import { HandlerParams } from './validators/handler-params';
 import { Observable } from 'rxjs';
 import { Doctor } from './schemas/doctor.schema';
 import { DoctorEntity } from './entities/doctor.entity';
+import { CreateDoctorDto } from './dto/create-doctor.dto';
+import { UpdateDoctorDto } from './dto/update-doctor.dto';
 
 @Controller('doctor')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -16,4 +29,35 @@ export class DoctorController {
     findAll(): Observable<DoctorEntity[] | void> {
         return this._doctorService.findAll();
     }
+
+    @Get('random')
+    findRandom(): Observable<DoctorEntity | void> {
+        return this._doctorService.findRandom();
+    }
+
+
+    @Get(':id')
+    findOne(@Param() params: HandlerParams): Observable<DoctorEntity> {
+        return this._doctorService.findOne(params.id);
+    }
+
+    @Post()
+    create(@Body() createDoctorDto: CreateDoctorDto): Observable<DoctorEntity> {
+        return this._doctorService.create(createDoctorDto);
+    }
+
+
+    @Put(':id')
+    update(
+        @Param() params: HandlerParams,
+        @Body() updateDoctorDto: UpdateDoctorDto,
+    ): Observable<DoctorEntity> {
+        return this._doctorService.update(params.id, updateDoctorDto);
+    }
+
+
+    @Delete(':id')
+        delete(@Param() params: HandlerParams): Observable<void> {
+        return this._doctorService.delete(params.id);
+  }
 }
