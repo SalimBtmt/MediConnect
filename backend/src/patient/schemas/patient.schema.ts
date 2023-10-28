@@ -90,6 +90,7 @@ export class Patient {
   //   type : mongoose.Schema.Types.ObjectId,
   //     ref: 'doctor'
   // }
+  //
 }
 
 export const PatientSchema = SchemaFactory.createForClass(Patient);
