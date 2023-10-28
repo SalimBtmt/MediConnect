@@ -1,5 +1,5 @@
 head {
-    width: calc(100% - 5rem);
+    width: calc(100% - 10rem);
     margin-left: 5rem;
     z-index: 1;
     transition: all .5s ease;
@@ -17,6 +17,7 @@ head {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-height: 8vh;
 }
 
 .head-content-left{
