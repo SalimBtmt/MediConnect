@@ -1,53 +1,16 @@
 .container {
     display: flex;
-    max-height: calc(100vh - 10rem); /* Subtract the header height from the viewport height */
-    overflow: hidden; 
+    max-height: calc(100vh - 10rem);
+    overflow: hidden;
+}
+
+.left, .right {
+    max-height: 100%;
 }
 
 .left {
     margin-top: 2rem;
     flex-grow: 2;
-    max-height: 100%; /* Set a maximum height to take up the available space */
-}
-
-.card-left {
-    padding: 1rem;
-    max-height: 100%; /* Set a maximum height to take up the available space */
-}
-
-mat-card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.top-left {
-    display: flex;
-    flex-direction: column;
-}
-
-.top-left-container{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.top-left-left {
-    display: flex;
-    justify-content: center;
-    align-items: left;
-}
-
-.top-left-right {
-    display: flex;
-    justify-content: center;
-    align-items: right;
-}
-
-.bottom-left {
-    display: flex;
-    flex-direction: column;
 }
 
 .right {
@@ -56,12 +19,40 @@ mat-card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-height: 100%; /* Set a maximum height to take up the available space */
 }
 
 .card-right {
     padding: 1rem;
     width: 96%;
-    max-height: 100%; /* Set a maximum height to take up the available space */
-    overflow-y: auto; /* Enable vertical scrolling if content exceeds the container height */
+    max-height: 100%; 
+}
+
+
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 76vh;
+    overflow: auto;
+}
+
+.card-right.has-content {
+    overflow-y: auto;
+}
+
+.top-left-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.top-left-left, .top-left-right {
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-left, .top-left {
+    display: flex;
+    flex-direction: column;
 }
