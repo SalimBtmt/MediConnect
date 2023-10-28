@@ -13,7 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-
+import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
@@ -31,7 +31,8 @@ import {MatCardModule} from '@angular/material/card';
     AppRoutingModule,
     MatCardModule,
     MatTableModule, MatSortModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
