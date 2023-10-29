@@ -43,7 +43,7 @@ export class DoctorEntity {
     @Expose()
     @Type(() => String)
     password: string;
-
+    
 
       /**
    * Class constructor

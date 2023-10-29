@@ -163,6 +163,20 @@ export class PatientService {
     ),
   );
 
+   /**
+     * Function to parse date and return timestamp
+     *
+     * @param {string} date to parse
+     *
+     * @returns {number} timestamp
+     *
+     * @private
+     */
+   private _parseDate = (date: string): number => {
+    const dates = date.split('/');
+    return new Date(dates[2] + '/' + dates[1] + '/' + dates[0]).getTime();
+};
+
     /**
      * Add patient with good data in patients list
      *
@@ -179,18 +193,12 @@ export class PatientService {
         ...patient,
         birthDate: this._parseDate('01/01/2000').toString(),
     });
+   
 
-    /**
-     * Function to parse date and return timestamp
-     *
-     * @param {string} date to parse
-     *
-     * @returns {number} timestamp
-     *
-     * @private
-     */
-    private _parseDate = (date: string): number => {
-        const dates = date.split('/');
-        return new Date(dates[2] + '/' + dates[1] + '/' + dates[0]).getTime();
-    };
+    findAllByDoctorId = (doctorId : string) : Observable<PatientEntity[] | void> =>
+    this._patientDao.findByDoctorId(doctorId).pipe(
+        filter(Boolean),
+        map((patients) => (patients || []).map((patient) => new PatientEntity(patient))),
+        defaultIfEmpty(undefined)
+    )
 }
