@@ -52,4 +52,4 @@ db.getCollection('doctor').insertMany([
 ])
 
 // display the final initial data
-db.getCollection('doctors').find({});
+db.getCollection('doctor').find({});

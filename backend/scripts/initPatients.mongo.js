@@ -1,5 +1,5 @@
 /**
- * This script is to insert initial data inside the collection patients of the database nwt
+ * This script is to insert initial data inside the collection patients of the database MediConnect
  * You can use it with mongo-shell or a tool like Robo3T
  */
 
@@ -139,4 +139,4 @@ db.getCollection('patient').insertMany([
 
 
 // display the final initial data
-db.getCollection('doctors').find({});
+db.getCollection('patient').find({});
