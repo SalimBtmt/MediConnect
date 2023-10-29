@@ -7,6 +7,7 @@ import {
     Param,
     Post,
     Put,
+    Request,
     UseInterceptors,
   } from '@nestjs/common';
 import { HttpInterceptor } from '../interceptors/http.interceptor';
@@ -60,4 +61,10 @@ export class PatientController {
         delete(@Param() params: HandlerParams): Observable<void> {
         return this._patientService.delete(params.id);
   }
+
+
+    @Get('doctor/:id')
+    findAllByDoctorId(@Param('id') doctorId: string): Observable<PatientEntity[] | void> {
+        return this._patientService.findAllByDoctorId(doctorId);
+    }
 }

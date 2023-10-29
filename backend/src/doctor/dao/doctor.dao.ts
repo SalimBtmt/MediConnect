@@ -21,7 +21,7 @@ export class DoctorDao {
         from(this._doctorModel.findById(id).lean());
     
       /**
-       * Check if doctor already exists with index and add it in doctor list
+       * Check if doctor already exists with index and add it in doctors list
        *
        * @param {CreateDoctorDto} doctor to create
        *
@@ -31,7 +31,7 @@ export class DoctorDao {
         from(new this._doctorModel(doctor).save());
     
       /**
-       * Update a doctor in doctor list
+       * Update a doctor in doctors list
        *
        * @param {string} id
        * @param {UpdateDoctorDto} doctor
@@ -50,7 +50,7 @@ export class DoctorDao {
         );
     
       /**
-       * Delete a doctor in doctor list
+       * Delete a doctor in doctors list
        *
        * @param {string} id
        *

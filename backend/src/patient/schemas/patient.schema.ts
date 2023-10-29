@@ -85,11 +85,18 @@ export class Patient {
   })
   bloodtype: string;
 
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  })
+  doctorId: mongoose.Schema.Types.ObjectId;
+
   // TODO
   // doctor: {
   //   type : mongoose.Schema.Types.ObjectId,
   //     ref: 'doctor'
   // }
+  //
 }
 
 export const PatientSchema = SchemaFactory.createForClass(Patient);

@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    max-height: calc(100vh - 10rem);
+    overflow: hidden;
+}
+
+.left, .right {
+    max-height: 100%;
+}
+
+.left {
+    margin-top: 2rem;
+    flex-grow: 2;
+}
+
+.right {
+    margin-top: 2rem;
+    flex-grow: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-right {
+    padding: 1rem;
+    width: 96%;
+    max-height: 100%; 
+}
+
+
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 76vh;
+    overflow: auto;
+}
+
+.card-right.has-content {
+    overflow-y: auto;
+}
+
+.top-left-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.top-left-left, .top-left-right {
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-left, .top-left {
+    display: flex;
+    flex-direction: column;
+}

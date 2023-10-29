@@ -58,4 +58,11 @@ export class PatientDao {
        */
       findByIdAndRemove = (id: string): Observable<Patient | void> =>
         from(this._patientModel.findByIdAndRemove(id));
+
+
+      
+      findByDoctorId = (doctorId : String) : Observable<Patient[]> =>
+      from(this._patientModel.find({doctorId}).lean()).pipe(map((patient) =>
+        [].concat(patient)));
+
 }
