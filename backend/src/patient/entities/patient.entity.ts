@@ -36,10 +36,9 @@ export class PatientEntity {
     @Type(() => String)
     bloodtype: string;
 
-    // TODO
-    // @Expose()
-    // @Type(() => String)
-    // doctor: string;
+    @Expose()
+    @Type(() => String)
+    doctor: string;
 
 
       /**

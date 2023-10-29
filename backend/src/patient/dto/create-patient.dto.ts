@@ -35,4 +35,8 @@ export class CreatePatientDto {
     @IsString()
     @IsNotEmpty()
     bloodtype: string;
+
+    @IsString()
+    @IsNotEmpty()
+    doctorId: string;
 }
