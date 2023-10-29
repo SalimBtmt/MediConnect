@@ -29,9 +29,5 @@ export class CreateConsultationDto {
 
     @IsString()
     @IsNotEmpty()
-    doctorId: string;
-
-    @IsString()
-    @IsNotEmpty()
     patientId: string;
 }

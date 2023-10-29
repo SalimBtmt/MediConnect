@@ -28,16 +28,9 @@ export class ConsultationEntity {
     @Type(() => String)
     prescription: string;
 
-    // TODO
-    // @Expose()
-    // @Type(() => String)
-    // doctor: string;
-    
-    // TODO
-    // @Expose()
-    // @Type(() => String)
-    // patient: string;
-
+    @Expose()
+    @Type(() => String)
+    patientId: string;
 
       /**
    * Class constructor
