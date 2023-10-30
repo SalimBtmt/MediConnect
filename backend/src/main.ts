@@ -10,6 +10,7 @@ import { AppConfig } from './app.types';
 
 
 async function bootstrap(config: AppConfig) {
+  const cors = require('cors');
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule, 
     new FastifyAdapter({ logger: true })
@@ -18,6 +19,11 @@ async function bootstrap(config: AppConfig) {
   Logger.log(
     `Application served at http://${config.host}:${config.port}`,
     'bootstrap');
+
+    app.use(cors({
+      origin: 'http://localhost:4200', 
+      
+    }));
 }
 
 bootstrap(Config.get<AppConfig>('server'));
