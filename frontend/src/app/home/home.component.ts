@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  private _patient: Patient[] = [];
+  private _patients: Patient[] = [];
   private readonly _backendURL: any;
 
   displayedColumns: string[] = ['firstname', 'lastname', 'birthDate', 'bloodtype'];
@@ -37,17 +37,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
       .get<Patient[]>(this._backendURL.allPatients)
       .subscribe({
         next: (patients: Patient[]) => {
-          this._patient = patients;
+          this._patients = patients;
           
-          this.dataSource.data = this._patient; // Set patient data in MatTable
-          console.log(this.dataSource.data)
+          this.dataSource.data = this._patients; // Set patient data in MatTable
         },
         error: (error) => {
           console.error('Error fetching patient data', error);
         },
       });
-
-      
   }
 
   ngAfterViewInit() {
