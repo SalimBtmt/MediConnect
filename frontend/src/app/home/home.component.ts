@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private _patients: Patient[] = [];
   private readonly _backendURL: any;
 
-  displayedColumns: string[] = ['firstname', 'lastname', 'birthDate', 'bloodtype'];
+  displayedColumns: string[] = ['firstname', 'lastname', 'birthDate', 'bloodtype','actions'];
   dataSource = new MatTableDataSource<Patient>(); // Change the type to Patient
 
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
@@ -57,5 +57,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+  
+  deletePatient(patient: Patient): void {
+    this._http.delete(this._backendURL.onePatient.replace(':id',"654031be74926abbaed1eda1" /* patient.id */))
+      .subscribe({
+        next: () => {
+          // Remove the patient from the local array
+          this._patients = this._patients.filter((p: Patient) => p.id !== "654031be74926abbaed1eda1" /* patient.id */);
+          
+          // Update the MatTable data source
+          this.dataSource.data = this._patients;
+
+          // Reload the page to refresh the data
+          window.location.reload();
+        
+        },
+        error: (error) => {
+          console.error('Error deleting patient', error);
+        },
+      });
   }
 }
