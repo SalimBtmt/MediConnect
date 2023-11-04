@@ -1,0 +1,34 @@
+.container-consultation {
+    display: flex;
+    height: 90vh;
+}
+
+.body h1{
+    margin-top: 2rem;
+    margin-left: 6rem;
+}
+
+  
+  /* Adjustments to prevent overflow */
+  .auth-page,
+  .head,
+  .body {
+    max-height: 100vh;
+    overflow: auto;
+  }
+  
+  /* Responsive adjustments */
+  .body-trimmed {
+    width: calc(100% - 16.5625rem);
+    margin-left: 12.5625rem;
+  }
+  
+  .body-md-screen {
+    width: calc(100%);
+    margin-left: 6rem;
+  }
+  
+  .head-md-screen {
+    width: calc(100% - 5rem);
+    margin-left: 6rem;
+  }

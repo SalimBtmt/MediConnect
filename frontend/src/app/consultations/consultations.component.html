@@ -1,1 +1,15 @@
-<h1>Consultations</h1>
+<app-sidenav
+  *ngIf="!isSignInOrSignUpRoute"
+  (onToggleSideNav)="onToggleSideNav($event)"
+></app-sidenav>
+<app-header
+  *ngIf="!isSignInOrSignUpRoute"
+  [collapsed]="isSideNavCollappsed"
+  [screenWidth]="screenWidth"
+></app-header>
+<div class="body" [ngClass]="getBodyClass()">
+    <h1>Consultations</h1>
+  <div class="container-consultation">
+    
+  </div>
+</div>
