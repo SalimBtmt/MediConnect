@@ -5,14 +5,17 @@ import { AppService } from './app.service';
 import { DoctorModule } from './doctor/doctor.module';
 import * as Config from 'config';
 import { PatientModule } from './patient/patient.module';
+
 import { AuthModule } from './auth/auth.module';
+import { ConsultationModule } from './consultation/consultation.module';
 
 @Module({
   imports: [
     DoctorModule,
     PatientModule,
-    MongooseModule.forRoot(Config.get<string>('mongodb.uri')),
     AuthModule,
+    ConsultationModule,
+    MongooseModule.forRoot(Config.get<string>('mongodb.uri'))
   ],
   controllers: [AppController],
   providers: [AppService],
