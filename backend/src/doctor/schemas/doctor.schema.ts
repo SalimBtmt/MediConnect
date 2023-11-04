@@ -5,6 +5,7 @@ import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 export type DoctorDocument = Doctor & Document;
 
 @Schema({
+  timestamps: true,
   collection: 'doctor',
   toJSON: {
     virtuals: true,
@@ -40,27 +41,27 @@ export class Doctor {
 
   @Prop({
     type: String,
-    required: true,
+    required: false,
     trim: true,
   })
   specialty: string;
 
   @Prop({
     type: Date,
-    required: true,
+    required: false,
   })
   birthDate: string;
 
   @Prop({
     type: String,
-    required: true,
+    required: false,
     trim: true,
   })
   email: string;
 
   @Prop({
     type: String,
-    required: true,
+    required: false,
     match: /^(\+\d{11})$/,
   })
   phone: string;
@@ -69,16 +70,16 @@ export class Doctor {
     raw({
       street: {
         type: String,
-        required: true,
+        required: false,
         trim: true,
       },
       postalCode: {
         type: Number,
-        required: true,
+        required: false,
       },
       city: {
         type: String,
-        required: true,
+        required: false,
         trim: true,
       },
     }),
@@ -90,6 +91,8 @@ export class Doctor {
     required: true,
     minlength: 2,
     trim: true,
+    unique: true, // Set to true to indicate a unique constraint
+    message: 'Duplicate username entered', // Define a custom error message
   })
   username: string;
 
@@ -104,4 +107,5 @@ export class Doctor {
 
 export const DoctorSchema = SchemaFactory.createForClass(Doctor);
 
-DoctorSchema.index({ firstname: 1, lastname: 1 }, { unique: true });
+// Define a unique index on the 'username' field
+// DoctorSchema.index({ username: 1 }, { unique: true });

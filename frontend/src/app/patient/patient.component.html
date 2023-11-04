@@ -1,5 +1,15 @@
-<h1>Patient info</h1>
-<div class="container">
+<app-sidenav
+*ngIf="!isSignInOrSignUpRoute"
+(onToggleSideNav)="onToggleSideNav($event)"
+></app-sidenav>
+<app-header
+*ngIf="!isSignInOrSignUpRoute"
+[collapsed]="isSideNavCollappsed"
+[screenWidth]="screenWidth"
+></app-header>
+<div class="body" [ngClass]="getBodyClass()">
+<div class="title"></div>
+<div class="container-patient">
   <div class="left">
     <mat-card>
       <mat-card-content>
