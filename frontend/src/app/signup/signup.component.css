@@ -1,0 +1,79 @@
+/* Style for the sign-in container */
+.signup-container {
+    max-width: 400px;
+    margin: 5rem auto;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style for the sign-in form */
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Style for the sign-in form title */
+  .signup-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Style for form fields */
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the sign-in button */
+  .signup-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+  }
+  
+  /* Style for the sign-in button on hover */
+  .signup-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style for the "Sign Up" link */
+  .signin-link {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  /* Style for the "Sign Up" link on hover */
+  .signin-link:hover {
+    color: #0056b3;
+  }
+  
+  /* Style for error messages or notifications (if needed) */
+  .error-message {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  /* Center the "Sign Up" button */
+  .signin-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
