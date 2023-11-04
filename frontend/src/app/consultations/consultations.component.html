@@ -18,10 +18,10 @@
           <button class="btn btn-primary" (click)="changeView(1)">Next</button>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 center">
         <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 right">
         <div class="btn-group">
           <button class="btn" [ngClass]="{'btn-primary': view === CalendarView.Month}" (click)="setView(CalendarView.Month)">Month</button>
           <button class="btn" [ngClass]="{'btn-primary': view === CalendarView.Week}" (click)="setView(CalendarView.Week)">Week</button>
@@ -29,6 +29,8 @@
         </div>
       </div>
     </div>
+    
+    
     <br />
     <div [ngSwitch]="view">
       <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"></mwl-calendar-month-view>

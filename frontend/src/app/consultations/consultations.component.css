@@ -10,7 +10,7 @@
 .body h1 {
   margin-top: 2rem;
   margin-left: 6rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 /* Adjustments to prevent overflow */
@@ -69,4 +69,46 @@
 
 .mwl-calendar-month-view, .mwl-calendar-week-view, .mwl-calendar-day-view {
   margin-top: 20px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+/* Adjust the button spacing in the middle column */
+.center button {
+  margin: 0 5px;
+}
+
+/* Style the buttons */
+.btn-group button {
+  padding: 10px 15px;
+  margin: 0 5px;
+}
+
+.btn-group button.btn-primary {
+  background-color: #17A589; /* Use the specified theme color */
+  color: #fff;
+  border: 1px solid #17A589; /* Use the specified theme color */
+}
+
+.btn-group button.btn-outline-secondary {
+  background-color: #fff;
+  color: #17A589; /* Use the specified theme color */
+  border: 1px solid #17A589; /* Use the specified theme color */
+}
+
+.btn-group button.active {
+  background-color: #17A589; /* Use the specified theme color */
+  color: #fff;
 }
