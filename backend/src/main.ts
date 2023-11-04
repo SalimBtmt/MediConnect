@@ -7,6 +7,9 @@ import {
 import { AppModule } from './app.module';
 import * as Config from 'config'
 import { AppConfig } from './app.types';
+import * as fastifyCookie from 'fastify-cookie'; // Add this line
+
+
 
 
 async function bootstrap(config: AppConfig) {
@@ -15,15 +18,15 @@ async function bootstrap(config: AppConfig) {
     AppModule, 
     new FastifyAdapter({ logger: true })
     );
+  await app.register(fastifyCookie);
   await app.listen(config.port, config.host);
   Logger.log(
     `Application served at http://${config.host}:${config.port}`,
     'bootstrap');
 
-    app.use(cors({
-      origin: 'http://localhost:4200', 
-      
-    }));
+    
+
+    app.use(cors());
 }
 
 bootstrap(Config.get<AppConfig>('server'));
