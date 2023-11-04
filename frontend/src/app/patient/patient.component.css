@@ -1,7 +1,10 @@
-.container {
+.container-patient {
     display: flex;
-    max-height: calc(100vh - 10rem);
-    overflow: hidden;
+    height: 90vh;
+}
+
+.container-patient h2{
+    margin-bottom: 3rem;
 }
 
 .left, .right {
@@ -9,8 +12,10 @@
 }
 
 .left {
+    flex-grow: 2; /* Adjusted flex-grow value */
     margin-top: 2rem;
-    flex-grow: 2;
+    margin-left: 7rem;
+    margin-right: 2rem;
 }
 
 .right {
@@ -56,3 +61,33 @@ mat-card-content {
     display: flex;
     flex-direction: column;
 }
+
+/* Your existing CSS styles */
+  
+  /* Rest of your CSS styles... */
+  
+  /* End of your existing CSS */
+  
+  /* Adjustments to prevent overflow */
+  .auth-page,
+  .head,
+  .body {
+    max-height: 100vh;
+    overflow: auto;
+  }
+  
+  /* Responsive adjustments */
+  .body-trimmed {
+    width: calc(100% - 16.5625rem);
+    margin-left: 12.5625rem;
+  }
+  
+  .body-md-screen {
+    width: calc(100%);
+    margin-left: 5rem;
+  }
+  
+  .head-md-screen {
+    width: calc(100% - 5rem);
+    margin-left: 5rem;
+  }
