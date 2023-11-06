@@ -174,4 +174,11 @@ export class ConsultationService {
         const dates = date.split('/');
         return new Date(dates[2] + '/' + dates[1] + '/' + dates[0]).getTime();
     };
+
+    findAllByPatientId = (patientId : string) : Observable<ConsultationEntity[] | void> =>
+    this._consultationDao.findByPatientId(patientId).pipe(
+        filter(Boolean),
+        map((consultations) => (consultations || []).map((consultation) => new ConsultationEntity(consultation))),
+        defaultIfEmpty(undefined)
+    )
 }

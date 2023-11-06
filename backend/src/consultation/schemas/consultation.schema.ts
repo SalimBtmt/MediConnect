@@ -58,15 +58,12 @@ export class Consultation {
   })
   prescription: string;
 
-  // TODO
-  // doctor: {
-  //   type : mongoose.Schema.Types.ObjectId,
-  //     ref: 'doctor'
-  // }
-  // patient: {
-  //   type : mongoose.Schema.Types.ObjectId,
-  //     ref: 'patient'
-  // }
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'patient',
+    required: true,
+  })
+  patientId: mongoose.Schema.Types.ObjectId;
 }
 
 export const ConsultationSchema = SchemaFactory.createForClass(Consultation);

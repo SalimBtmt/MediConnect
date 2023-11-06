@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Patient } from '../schemas/patient.schema';
-import { Model } from 'mongoose';
-import { Observable, from, map } from 'rxjs';
-import { CreatePatientDto } from '../dto/create-patient.dto';
-import { UpdatePatientDto } from '../dto/update-patient.dto';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Patient } from "../schemas/patient.schema";
+import mongoose, { Model, ObjectId } from "mongoose";
+import { Observable, from, map } from "rxjs";
+import { CreatePatientDto } from "../dto/create-patient.dto";
+import { UpdatePatientDto } from "../dto/update-patient.dto";
+
 
 @Injectable()
 export class PatientDao {

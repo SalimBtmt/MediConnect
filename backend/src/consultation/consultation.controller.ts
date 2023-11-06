@@ -60,4 +60,9 @@ export class ConsultationController {
         delete(@Param() params: HandlerParams): Observable<void> {
         return this._consultationService.delete(params.id);
   }
+
+    @Get('patient/:id')
+    findAllByDoctorId(@Param('id') patientId: string): Observable<ConsultationEntity[] | void> {
+        return this._consultationService.findAllByPatientId(patientId);
+    }
 }

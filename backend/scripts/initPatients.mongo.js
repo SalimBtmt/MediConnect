@@ -17,6 +17,7 @@ db.getCollection('patient').insertMany([
       city: 'Boling',
     },
     bloodtype: 'A+',
+    doctorId: null
   },
   {
     firstname: 'Castaneda',
@@ -30,6 +31,7 @@ db.getCollection('patient').insertMany([
       city: 'Franklin',
     },
     bloodtype: 'A+',
+    doctorId: null
   },
   {
     firstname: 'Phyllis',
@@ -43,6 +45,7 @@ db.getCollection('patient').insertMany([
       city: 'Onton',
     },
     bloodtype: 'A+',
+    doctorId: null
   },
   {
     firstname: 'Erika',
@@ -56,6 +59,7 @@ db.getCollection('patient').insertMany([
       city: 'Yardville',
     },
     bloodtype: 'A+',
+    doctorId: null
   },
   {
     firstname: 'Moody',
@@ -69,6 +73,7 @@ db.getCollection('patient').insertMany([
       city: 'Coloma',
     },
     bloodtype: 'A+',
+    doctorId: null
   },
   {
     firstname: 'Mercedes',
@@ -82,6 +87,7 @@ db.getCollection('patient').insertMany([
       city: 'Northchase',
     },
     bloodtype: 'A+',
+    doctorId: null
   },
   {
     firstname: 'Howell',
@@ -95,6 +101,7 @@ db.getCollection('patient').insertMany([
       city: 'Shindler',
     },
     bloodtype: 'A+',
+    doctorId: null
   },
   {
     firstname: 'Lizzie',
@@ -108,6 +115,7 @@ db.getCollection('patient').insertMany([
       city: 'Waverly',
     },
     bloodtype: 'A+',
+    doctorId: null
   },
   {
     firstname: 'Roy',
@@ -121,6 +129,7 @@ db.getCollection('patient').insertMany([
       city: 'Glidden',
     },
     bloodtype: 'A+',
+    doctorId: null
   },
   {
     firstname: 'Mclaughlin',
@@ -134,6 +143,7 @@ db.getCollection('patient').insertMany([
       city: 'Snelling',
     },
     bloodtype: 'A+',
+    doctorId: null
   },
 ]);
 
