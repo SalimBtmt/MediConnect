@@ -2,7 +2,7 @@
   <div class="head-content">
     <div class="head-content-left">
       <i class="fa fa-user-md"></i>
-      <p>Bonjour Dr. Dupont</p>
+      <p>Bonjour Dr. {{ doctorConnected?.firstname }}</p>
     </div>
     <div class="head-content-right">
       <div class="date-time">{{ currentDateTime | date : "dd MMMM yyyy" }}</div>
