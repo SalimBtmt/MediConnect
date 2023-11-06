@@ -94,4 +94,4 @@ export class Patient {
 
 export const PatientSchema = SchemaFactory.createForClass(Patient);
 
-PatientSchema.index({ firstname: 1, lastname: 1 }, { unique: true });
+//PatientSchema.index({ firstname: 1, lastname: 1 }, { unique: true });

@@ -1,57 +1,107 @@
-.container{
+/* Improve the layout and styling */
+.container-home {
     display: flex;
-    height: 100%;
-}
-
-.left{
-    flex-grow: 10;
+    height: 90vh;
+  }
+  
+  .left {
+    flex-grow: 7; /* Adjusted flex-grow value */
     margin-top: 2rem;
-}
-
-.left h2{
+    width: calc(100% - 5rem);
+    margin-left: 7rem;
+    margin-right: 2rem;
+  }
+  
+  .left h2 {
     margin-bottom: 1rem;
-}
-
-.right{
-    flex-grow: 1;
+  }
+  
+  .right {
+    flex-grow: 5; /* Adjusted flex-grow value */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     height: 70%;
     margin-top: 4rem;
-}
-
-mat-card{
+    margin-right: 3rem;
+  }
+  
+  mat-card {
     display: flex;
     padding: 5px;
     border-radius: 10px;
-}
-
-mat-card-content{
+  }
+  
+  mat-card-content {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-}
-
-.card-content-left{
+  }
+  
+  .card-content-left {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-}
-
-.card-content-left i{
+  }
+  
+  .card-content-left i {
     font-size: 35px;
     margin-right: 1rem;
-}
-
-.card-content-right{
+  }
+  
+  .card-content-right {
     flex-grow: 2;
-}
-
-#number{
+  }
+  
+  #number {
     font-size: 30px;
     font-weight: 500;
-}
+  }
+  
+  .deleteButton {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+  
+  .fa-trash {
+    font-size: large;
+  }
+  
+  /* Your existing CSS styles */
+  
+  /* Rest of your CSS styles... */
+  
+  /* End of your existing CSS */
+  
+  /* Adjustments to prevent overflow */
+  .auth-page,
+  .head,
+  .body {
+    max-height: 100vh;
+    overflow: auto;
+  }
+  
+  /* Responsive adjustments */
+  .body-trimmed {
+    width: calc(100% - 16.5625rem);
+    margin-left: 12.5625rem;
+  }
+  
+  .body-md-screen {
+    width: calc(100%);
+    margin-left: 5rem;
+  }
+  
+  .head-md-screen {
+    width: calc(100% - 5rem);
+    margin-left: 5rem;
+  }
+  

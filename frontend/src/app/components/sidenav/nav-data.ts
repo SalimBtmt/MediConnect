@@ -1,16 +1,16 @@
 export const navbarData = [
     {
-        routerLink: 'home',
+        routerLink: '/home',
         icon: 'fa fa-home',
         label: 'Home'
     },
     {
-        routerLink: 'patient',
+        routerLink: '/patient',
         icon: 'fa fa-address-card',
         label: 'Patients'
     },
     {
-        routerLink: 'consultations',
+        routerLink: '/consultations',
         icon: 'fa fa-calendar',
         label: 'Consultations'
     },

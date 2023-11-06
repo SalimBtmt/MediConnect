@@ -1,57 +1,194 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Patient } from '../shared/types/patient.type';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Router, NavigationEnd } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+// Interface for the sidenav toggle event
+interface SideNavToggle {
+  screenWidth: number;
+  collapsed: boolean;
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  
 })
-export class HomeComponent implements AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+export class HomeComponent implements OnInit, AfterViewInit {
+  isSignInOrSignUpRoute: boolean = false;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) {}
+  title = 'frontend';
+
+  // Flag to track the collapse state of the sidenav
+  isSideNavCollappsed: boolean = false;
+  // Variable to store the current screen width
+  screenWidth = 0;
+
+  private _patients: Patient[] = [];
+  private readonly _backendURL: any;
+
+  displayedColumns: string[] = [
+    'firstname',
+    'lastname',
+    'birthDate',
+    'bloodtype',
+    'actions',
+  ];
+  dataSource = new MatTableDataSource<Patient>(); // Change the type to Patient
 
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
+
+  constructor(
+    private _http: HttpClient,
+    private _liveAnnouncer: LiveAnnouncer,
+    private router: Router,
+    private cookieService: CookieService // Add this line
+  ) {
+    this._backendURL = {};
+
+    let baseUrl = `${environment.backend.protocol}://${environment.backend.host}`;
+    if (environment.backend.port) {
+      baseUrl += `:${environment.backend.port}`;
+    }
+    // build all backend urls
+    // @ts-ignore
+    Object.keys(environment.backend.endpoints).forEach((k) =>(this._backendURL[k] = `${baseUrl}${environment.backend.endpoints[k]}`));
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Check if the current route is /signin or /signup
+        this.isSignInOrSignUpRoute = ['/signin', '/signup'].includes(event.url);
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${localStorage.getItem('token')}`
+    );
+
+    const userData = this.cookieService.get('user');
+
+    if (userData) {
+      const user = JSON.parse(userData);
+
+      console.log('User from home:', user);
+
+      if (user && user.id) {
+        this._http
+          .get<Patient[]>(`http://0.0.0.0:3000/patient/doctor/${user.id}`, {
+            headers,
+          })
+          .subscribe({
+            next: (patients: Patient[]) => {
+              this._patients = patients;
+              this.dataSource.data = this._patients; // Set patient data in MatTable
+            },
+            error: (error) => {
+              console.error('Error fetching patient data', error);
+            },
+          });
+      } else {
+        console.error('User data is missing or invalid.');
+      }
+    } else {
+      console.error('User data is not available in localStorage.');
+    }
+  }
+
+  /* this._http
+      .get<Patient[]>(this._backendURL.allPatients)
+      .subscribe({
+        next: (patients: Patient[]) => {
+          this._patients = patients;
+          
+          this.dataSource.data = this._patients; // Set patient data in MatTable
+        },
+        error: (error) => {
+          console.error('Error fetching patient data', error);
+        },
+      }); */
+
+  onToggleSideNav(data: SideNavToggle): void {
+    // Update the collapse state and screen width based on the event data
+    this.isSideNavCollappsed = data.collapsed;
+    this.screenWidth = data.screenWidth;
+  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
-  /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
+
+  deletePatient(patient: Patient): void {
+    this._http
+      .delete(
+        this._backendURL.onePatient.replace(
+          ':id',
+          '654031be74926abbaed1eda1' /* patient.id */
+        )
+      )
+      .subscribe({
+        next: () => {
+          // Remove the patient from the local array
+          this._patients = this._patients.filter(
+            (p: Patient) => p.id !== '654031be74926abbaed1eda1' /* patient.id */
+          );
+
+          // Update the MatTable data source
+          this.dataSource.data = this._patients;
+
+          // Reload the page to refresh the data
+          window.location.reload();
+        },
+        error: (error) => {
+          console.error('Error deleting patient', error);
+        },
+      });
+  }
+
+  // Method to determine the CSS class for the body element
+  getBodyClass(): string {
+    let styleClass = '';
+
+    // If the sidenav is collapsed and the screen width is greater than 768 pixels, set the style class to 'body-trimmed'
+    if (this.isSideNavCollappsed && this.screenWidth > 768) {
+      styleClass = 'body-trimmed';
+
+      // If the sidenav is collapsed and the screen width is less than or equal to 768 pixels and greater than 0, set the style class to 'body-md-screen'
+    } else if (
+      this.isSideNavCollappsed &&
+      this.screenWidth <= 768 &&
+      this.screenWidth > 0
+    ) {
+      styleClass = 'body-md-screen';
+    }
+
+    if (this.isSignInOrSignUpRoute) {
+      styleClass = 'auth-page';
+    }
+    return styleClass;
+  }
+
+  onTableRowClick(row: Patient) {
+    // Here, 'row' contains the data of the clicked row (a Patient object).
+    console.log('Clicked row data:', row);
+  
+    // You can perform additional actions with the clicked data as needed.
+    // For example, you can open a modal or navigate to a details page.
+  }
+  
 }

@@ -1,43 +1,87 @@
-<div class="container">
+  <app-sidenav
+    *ngIf="!isSignInOrSignUpRoute"
+    (onToggleSideNav)="onToggleSideNav($event)"
+  ></app-sidenav>
+  <app-header
+    *ngIf="!isSignInOrSignUpRoute"
+    [collapsed]="isSideNavCollappsed"
+    [screenWidth]="screenWidth"
+  ></app-header>
+<div class="body" [ngClass]="getBodyClass()">
+<div class="container-home">
   <div class="left">
-    <h2>Liste des patiens</h2>
-    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
-       class="mat-elevation-z8">
+    <h2>Liste des patients</h2>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      (matSortChange)="announceSortChange($event)"
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="firstname">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by firstname"
+        >
+          Firstname
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.firstname }}</td>
+      </ng-container>
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
-      No.
-    </th>
-    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-  </ng-container>
+      <ng-container matColumnDef="lastname">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by lastname"
+        >
+          Lastname
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.lastname }}</td>
+      </ng-container>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
-      Name
-    </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
+      <ng-container matColumnDef="birthDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by birthDate"
+        >
+          Birth date
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.birthDate | date:'EEEE dd/MM/yyyy':'fr' }}</td>
+      </ng-container>
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
-      Weight
-    </th>
-    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-  </ng-container>
+      <ng-container matColumnDef="bloodtype">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by bloodtype"
+        >
+          Blood type
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.bloodtype }}</td>
+      </ng-container>
 
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by symbol">
-      Symbol
-    </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-  </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            class="deleteButton"
+            mat-icon-button
+            color="warn"
+            (click)="deletePatient(element)"
+          >
+            <i class="fa fa fa-trash"></i>
+          </button>
+        </td>
+      </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="onTableRowClick(row)"></tr>
     </table>
   </div>
   <div class="right">
@@ -47,43 +91,33 @@
           <i class="fa fa-user-circle"></i>
         </div>
         <div class="card-content-right">
-            <p id="number">340</p>
-            <p>Total patients</p>
+          <p id="number">{{ dataSource.data.length }}</p>
+          <p>Total patients</p>
         </div>
       </mat-card-content>
     </mat-card>
     <mat-card>
-        <mat-card-content>
-          <div class="card-content-left">
-            <i class="fa fa-user-circle"></i>
-          </div>
-          <div class="card-content-right">
-              <p id="number">340</p>
-              <p>Total patients</p>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <mat-card>
-        <mat-card-content>
-          <div class="card-content-left">
-            <i class="fa fa-user-circle"></i>
-          </div>
-          <div class="card-content-right">
-              <p id="number">340</p>
-              <p>Total patients</p>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <mat-card>
-        <mat-card-content>
-          <div class="card-content-left">
-            <i class="fa fa-user-circle"></i>
-          </div>
-          <div class="card-content-right">
-              <p id="number">340</p>
-              <p>Total patients</p>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <mat-card-content>
+        <div class="card-content-left">
+          <i class="fa fa-user-circle"></i>
+        </div>
+        <div class="card-content-right">
+          <p id="number">{{ dataSource.data.length }}</p>
+          <p>Total patients</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-content>
+        <div class="card-content-left">
+          <i class="fa fa-user-circle"></i>
+        </div>
+        <div class="card-content-right">
+          <p id="number">{{ dataSource.data.length }}</p>
+          <p>Total patients</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
+</div>
 </div>
