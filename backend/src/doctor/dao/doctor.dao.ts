@@ -14,8 +14,14 @@ export class DoctorDao {
         private readonly _doctorModel: Model<Doctor>
     ) {}
 
-    find = (): Observable<Doctor[]> =>
-        from(this._doctorModel.find({}).lean()).pipe(map((doctor) => [].concat(doctor)));
+    find = (): Observable<Doctor[]> => {
+      return from(this._doctorModel.find({}).lean()).pipe(
+        map((doctors) => Array.isArray(doctors)
+          ? doctors.map((patient) => ({ ...patient, id: patient._id }))
+          : [{ ...doctors, id: doctors._id }]
+        )
+      );
+    };
 
     findById = (id: string): Observable<Doctor | void> =>
         from(this._doctorModel.findById(id).lean());
