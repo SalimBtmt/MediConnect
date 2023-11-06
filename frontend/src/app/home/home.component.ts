@@ -182,4 +182,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
     return styleClass;
   }
+
+  onTableRowClick(row: Patient) {
+    // Here, 'row' contains the data of the clicked row (a Patient object).
+    console.log('Clicked row data:', row);
+  
+    // You can perform additional actions with the clicked data as needed.
+    // For example, you can open a modal or navigate to a details page.
+  }
+  
 }
