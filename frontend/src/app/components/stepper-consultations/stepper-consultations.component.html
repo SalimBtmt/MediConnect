@@ -1,3 +1,4 @@
+<button mat-raised-button (click)="openConsultationModal()">Add Consultation</button>
 <mat-vertical-stepper class="custom-stepper">
   <mat-step *ngFor="let consultation of consultations" [completed]="true" >
     <ng-template matStepLabel>
@@ -10,7 +11,7 @@
   </mat-step>
 </mat-vertical-stepper>
 
-<button mat-raised-button (click)="openConsultationModal()">Add Consultation</button>
+
 <!--
 <div class="consultations-container">
   <div *ngFor="let consultation of consultations" class="consultation">
