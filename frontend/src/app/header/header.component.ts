@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   currentDateTime: string | null = null;
 
-  constructor(private datePipe: DatePipe) {}
+  constructor(private datePipe: DatePipe, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.updateDateTime();
@@ -40,6 +42,12 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() : void{
-    alert("Logout")
+    localStorage.setItem("jwt","")
+    localStorage.setItem("token","")
+    localStorage.setItem("user","")
+
+    this.http.post('http://0.0.0.0:3000/auth/logout', {})
+
+    this.router.navigate(['/signin']);
   }
 }
