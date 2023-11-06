@@ -1,6 +1,6 @@
 export type Consultation = {
 
-    id?: string;
+    _id?: string;
 
     dateStart: string;
 
