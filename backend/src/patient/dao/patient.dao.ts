@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Patient } from "../schemas/patient.schema";
-import { Model } from "mongoose";
+import mongoose, { Model, ObjectId } from "mongoose";
 import { Observable, from, map } from "rxjs";
 import { CreatePatientDto } from "../dto/create-patient.dto";
 import { UpdatePatientDto } from "../dto/update-patient.dto";
@@ -59,10 +59,7 @@ export class PatientDao {
       findByIdAndRemove = (id: string): Observable<Patient | void> =>
         from(this._patientModel.findByIdAndRemove(id));
 
-
-      
-      findByDoctorId = (doctorId : String) : Observable<Patient[]> =>
-      from(this._patientModel.find({doctorId}).lean()).pipe(map((patient) =>
-        [].concat(patient)));
+      findByDoctorId = (someId : string) : Observable<Patient[]> =>
+        from(this._patientModel.find({ "doctorId" : someId }).lean()).pipe(map((patient) => [].concat(patient)));
 
 }
