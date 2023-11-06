@@ -4,7 +4,7 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
-} from '@angular/common/http'; // Make sure you import the HttpClient module
+} from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -19,10 +19,10 @@ export class SigninComponent implements OnInit {
   signInForm: FormGroup;
 
   constructor(
-    private router: Router, // Inject the Router service
+    private router: Router,
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private cookieService: CookieService // Add this line
+    private cookieService: CookieService
   ) {
     this.signInForm = this.formBuilder.group({
       username: ['', [Validators.required]],
@@ -33,20 +33,13 @@ export class SigninComponent implements OnInit {
   // Define httpOptions
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json', // You can adjust the content type as needed
-
+      'Content-Type': 'application/json',
     }),
   };
 
-  authenticatedUser(token:string): Observable<Doctor> {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${token}`
-    );
-    console.log(headers);
-    return this.httpClient.get<Doctor>('http://0.0.0.0:3000/auth/profile', {
-      headers,
-    });
+  authenticatedUser(token: string): Observable<Doctor> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get<Doctor>('http://0.0.0.0:3000/auth/profile');
   }
 
   ngOnInit(): void {}
@@ -75,18 +68,27 @@ export class SigninComponent implements OnInit {
             localStorage.setItem('jwt', response.token);
             localStorage.setItem('token', response.token);
 
-            if (response.token) {
-              this.authenticatedUser(response.token).subscribe((user:Doctor) => {
-                if(user){
-                  localStorage.setItem('user', user ? JSON.stringify(user) : JSON.stringify({}));
-                  this.cookieService.set('user', user ? JSON.stringify(user) : JSON.stringify({}));
+            // Now, wait for the authenticatedUser method to complete
+            this.authenticatedUser(response.token).subscribe(
+              (user: Doctor) => {
+                if (user) {
+                  localStorage.setItem('user', JSON.stringify(user));
+                  this.cookieService.set('user', JSON.stringify(user));
                 }
-              });
-              this.router.navigate(['/home']);
-            } else {
-              // Handle the case when the token is undefined (e.g., show an error or redirect).
-              console.error('Token is undefined');
-            }
+
+                // Navigate to another page only after the user data is updated
+                this.router.navigate(['/home']);
+              },
+              (error) => {
+                console.error('Error fetching user data:', error);
+
+                // If there's an error, you can still navigate to another page
+                this.router.navigate(['/home']);
+              }
+            );
+          } else {
+            // Handle the case when the token is undefined (e.g., show an error or redirect).
+            console.error('Token is undefined');
           }
         });
     }
@@ -95,17 +97,11 @@ export class SigninComponent implements OnInit {
   handleError(errorMessage: string, formData: any) {
     return (error: HttpErrorResponse) => {
       console.error(errorMessage, error);
-      // You can add your error handling logic here.
-      // For example, display an error message to the user.
-
-      // Rethrow the error so the calling code can handle it too.
       return throwError(error);
     };
   }
 
   goToSignUp() {
     this.router.navigate(['/signup']);
-    // Navigate to the sign-up page. You'll need to configure Angular routing for this.
-    // You can use the Angular Router for navigation.
   }
 }

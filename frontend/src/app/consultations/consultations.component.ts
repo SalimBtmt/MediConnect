@@ -1,13 +1,17 @@
-import { Component, OnInit, ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
 import { Consultation } from '../shared/types/consultation.type';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-
 import { Router, NavigationEnd } from '@angular/router';
-import { Cons } from 'rxjs';
-
+import { Subject } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventColor } from 'calendar-utils';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarView,
+} from 'angular-calendar';
 import {
   startOfDay,
   endOfDay,
@@ -18,16 +22,7 @@ import {
   isSameMonth,
   addHours,
 } from 'date-fns';
-import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
-} from 'angular-calendar';
-import { EventColor } from 'calendar-utils';
-// Interface for the sidenav toggle event
+
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
@@ -52,38 +47,15 @@ const colors: Record<string, EventColor> = {
   selector: 'app-consultations',
   templateUrl: './consultations.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
-      h3 {
-        margin: 0 0 10px;
-      }
-
-      pre {
-        background-color: #f5f5f5;
-        padding: 15px;
-      }
-    `,
-  ],
   styleUrls: ['./consultations.component.css']
 })
 export class ConsultationsComponent implements OnInit {
-
-  //------------------------------------------------------------------------------------------------
-
-
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any> | undefined;
-
+  
   view: CalendarView = CalendarView.Month;
-
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  } | undefined;
-
+  modalData: { action: string; event: CalendarEvent; } | undefined;
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -101,10 +73,9 @@ export class ConsultationsComponent implements OnInit {
       },
     },
   ];
-
   refresh = new Subject<void>();
-
-  events: CalendarEvent[] = [
+  events: CalendarEvent[] = [];
+  /* events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -143,7 +114,7 @@ export class ConsultationsComponent implements OnInit {
       },
       draggable: true,
     },
-  ];
+  ]; */
 
   activeDayIsOpen: boolean = true;
 
@@ -186,6 +157,24 @@ export class ConsultationsComponent implements OnInit {
         // Check if the current route is /signin or /signup
         this.isSignInOrSignUpRoute = ['/signin', '/signup'].includes(event.url);
       }
+    });
+
+    this._http.get<Consultation[]>("http://localhost:3000/consultation").subscribe((data) => {
+      this.events = data.map((item: Consultation) => {
+        console.log(item);
+        return {
+          start: new Date(item.dateStart),
+          end: new Date(item.dateEnd),
+          title: item.motive,
+          actions: this.actions,
+          allDay: true,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true,
+          },
+          draggable: true,
+        };
+      });
     });
   }
 

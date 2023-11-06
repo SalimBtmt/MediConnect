@@ -14,8 +14,14 @@ export class ConsultationDao {
         private readonly _consultationModel: Model<Consultation>
     ) {}
 
-    find = (): Observable<Consultation[]> =>
-        from(this._consultationModel.find({}).lean()).pipe(map((consultation) => [].concat(consultation)));
+    find = (): Observable<Consultation[]> => {
+      return from(this._consultationModel.find({}).lean()).pipe(
+        map((consultations) => Array.isArray(consultations)
+          ? consultations.map((patient) => ({ ...patient, id: patient._id }))
+          : [{ ...consultations, id: consultations._id }]
+        )
+      );
+    };
 
     findById = (id: string): Observable<Consultation | void> =>
         from(this._consultationModel.findById(id).lean());
