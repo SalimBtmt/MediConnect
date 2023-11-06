@@ -1,0 +1,24 @@
+<mat-vertical-stepper class="custom-stepper">
+  <mat-step *ngFor="let consultation of consultations" [completed]="true" >
+    <ng-template matStepLabel>
+      <h3>{{ consultation.dateStart | date:'EEEE dd/MM/yyyy':'fr'  }} - {{consultation.motive }}</h3>
+    </ng-template>
+    <p><span class="bold">Duration:</span> {{ -calculateDuration(consultation.dateEnd, consultation.dateStart) }} min</p>
+    <p><span class="bold">Motive:</span> {{ consultation.motive }}</p>
+    <p *ngIf="consultation.comment"><span class="bold">Comment:</span> {{ consultation.comment }}</p>
+    <p *ngIf="consultation.prescription"><span class="bold">Prescription:</span> {{ consultation.prescription }}</p>
+  </mat-step>
+</mat-vertical-stepper>
+
+<button mat-raised-button (click)="openConsultationModal()">Add Consultation</button>
+<!--
+<div class="consultations-container">
+  <div *ngFor="let consultation of consultations" class="consultation">
+    <h3>{{ consultation.motive }}</h3>
+    <p>Date Start: {{ consultation.dateStart | date:'short' }}</p>
+    <p>Date End: {{ consultation.dateEnd | date:'short' }}</p>
+    <p>Motive: {{ consultation.motive }}</p>
+    <p *ngIf="consultation.comment">Comment: {{ consultation.comment }}</p>
+    <p *ngIf="consultation.prescription">Prescription: {{ consultation.prescription }}</p>
+  </div>
+</div>-->
