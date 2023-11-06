@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Patient } from '../shared/types/patient.type';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,   HttpHeaders,
+} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 import { Router, NavigationEnd } from '@angular/router';
@@ -38,6 +39,9 @@ export class PatientComponent implements OnInit {
    * Component constructor
    */
   constructor(private _http: HttpClient, private router: Router) {
+
+
+
     this._patient = {} as Patient;
     this._backendURL = {};
 
@@ -69,7 +73,15 @@ export class PatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._http.get<Patient[]>(this._backendURL.allPatients)
+
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${localStorage.getItem("token")}`
+    );
+
+    this._http.get<Patient[]>(this._backendURL.allPatients,{
+      headers,
+    })
       .subscribe({ next: (patient: Patient[]) => this._patient = patient[1] });
   }
 
