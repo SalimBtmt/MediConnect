@@ -34,7 +34,26 @@ export class AuthService {
     return { token };
   }
 
-  async signIn(signInDto: SignInDto): Promise<{ token: string }> {
+  async signIn(username, pass) {
+    const user = await this.doctorModel.findOne({ username });
+  
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+  
+    if (!(await bcrypt.compare(pass, user.password))) {
+      throw new UnauthorizedException();
+    }
+  
+    const payload = { id: user.id, username: user.username }; // sub should be used for the user's ID
+  
+    return {
+      token: await this.jwtService.signAsync(payload),
+    };
+  }
+  
+
+  /* async signIn(signInDto: SignInDto): Promise<{ token: string }> {
     const { username, password } = signInDto;
 
     const user = await this.doctorModel.findOne({ username });
@@ -49,13 +68,10 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
-    console.log('user._id ', user._id);
-    console.log('user.id ', user.id);
-
     const token = this.jwtService.sign({ id: user._id });
 
     return { token };
-  }
+  } */
 
   async findOneById(id: string): Promise<Doctor> {
     // Remove password from the user

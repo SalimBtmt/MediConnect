@@ -51,6 +51,8 @@ export class SignupComponent implements OnInit {
           console.log('Response:', response);
         });
     }
+
+    this.router.navigate(['/signin']);
   }
 
   handleError(errorMessage: string, formData: any) {
