@@ -36,6 +36,7 @@ import { StepperConsultationsComponent } from './components/stepper-consultation
 import { MatStepperModule } from '@angular/material/stepper';
 import { AddConsultationComponent } from './components/add-consultation/add-consultation.component';
 import { ModifyPatientComponent } from './components/modify-patient/modify-patient.component';
+import { AddPatientComponent } from './components/add-patient/add-patient.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ModifyPatientComponent } from './components/modify-patient/modify-patie
     StepperConsultationsComponent,
     AddConsultationComponent,
     ModifyPatientComponent,
+    AddPatientComponent,
   ],
   imports: [
     BrowserModule,
