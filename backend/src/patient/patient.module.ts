@@ -10,6 +10,7 @@ import { Patient, PatientSchema } from './schemas/patient.schema';
     MongooseModule.forFeature([{ name: Patient.name, schema: PatientSchema}])
   ],
   controllers: [PatientController],
-  providers: [PatientService, Logger, PatientDao]
+  providers: [PatientService, Logger, PatientDao],
+  exports: [PatientService]
 })
 export class PatientModule {}
