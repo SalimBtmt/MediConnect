@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Modify Patient</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="modifyForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput formControlName="firstname" placeholder="First Name" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="lastname" placeholder="Last Name" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="email" placeholder="Email" type="email">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="phone" placeholder="Phone Number" type="tel">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="birthDate" placeholder="Birth Date" type="date">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="bloodtype" placeholder="Blood Type" required>
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" color="primary">Save Changes</button>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</div>

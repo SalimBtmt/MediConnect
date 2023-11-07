@@ -79,10 +79,8 @@ export class PatientComponent implements OnInit {
       `Bearer ${localStorage.getItem("token")}`
     );
 
-    this._http.get<Patient[]>(this._backendURL.allPatients,{
-      headers,
-    })
-      .subscribe({ next: (patient: Patient[]) => this._patient = patient[1] });
+    this._http.get<Patient>(`http://localhost:3000/patient/${localStorage.getItem("patientId")}`)
+      .subscribe({ next: (patient: Patient) => this._patient = patient });
   }
 
   

@@ -7,6 +7,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Router, NavigationEnd } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModifyPatientComponent } from '../components/modify-patient/modify-patient.component';
 
 // Interface for the sidenav toggle event
 interface SideNavToggle {
@@ -47,7 +49,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private _http: HttpClient,
     private _liveAnnouncer: LiveAnnouncer,
     private router: Router,
-    private cookieService: CookieService // Add this line
+    private cookieService: CookieService, 
+    private dialog: MatDialog
   ) {
     this._backendURL = {};
 
@@ -184,11 +187,42 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onTableRowClick(row: Patient) {
-    // Here, 'row' contains the data of the clicked row (a Patient object).
-    console.log('Clicked row data:', row);
-  
-    // You can perform additional actions with the clicked data as needed.
-    // For example, you can open a modal or navigate to a details page.
+    if (row && row.id) {
+      localStorage.setItem('patientId', row.id);
+      this.router.navigate(['/patient']);
+    }
   }
+
+  openModifyDialog(patient: Patient): void {
+    const dialogRef = this.dialog.open(ModifyPatientComponent, {
+      width: '400px', // Set the dialog width
+      data: { patient }, // Pass the patient data to the dialog
+    });
+  
+    dialogRef.afterClosed().subscribe((result: Patient) => {
+      if (result) {
+        console.log(result);
+  
+        this._http.put(`http://localhost:3000/patient/${patient.id}`, result).subscribe({
+          next: (response) => {
+            console.log('Patient updated successfully:', response);
+  
+            // Update the local patient data
+            const index = this._patients.findIndex((p) => p.id === patient.id);
+            if (index !== -1) {
+              this._patients[index] = result;
+              this.dataSource.data = this._patients; // Update the MatTable data source
+            }
+          },
+          error: (error) => {
+            // Handle the error from the API, e.g., show an error message
+            console.error('Error updating patient:', error);
+          },
+        });
+      }
+    });
+  }
+  
+  
   
 }

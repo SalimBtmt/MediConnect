@@ -1,0 +1,25 @@
+/* modify-patient.component.css */
+
+/* Center the dialog content */
+.mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Style the form elements */
+  mat-form-field {
+    width: 100%;
+    margin: 8px 0;
+  }
+  
+  /* Adjust the button styles */
+  button[type="submit"] {
+    margin-top: 16px;
+  }
+  
+  /* Center the dialog actions */
+  .mat-dialog-actions {
+    justify-content: center;
+  }
+  
