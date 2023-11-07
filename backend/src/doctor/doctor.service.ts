@@ -28,7 +28,6 @@ export class DoctorService {
     constructor(
         private readonly _doctorDao: DoctorDao,
         private readonly _patientService: PatientService,
-        private readonly _consultationService: ConsultationService
         ) {}
 
     findAll = (): Observable<DoctorEntity[] | void> =>
@@ -178,6 +177,6 @@ export class DoctorService {
         return new Date(dates[2] + '/' + dates[1] + '/' + dates[0]).getTime();
     };
 
-    getPatients = (id: string): Observable<PatientEntity[] | void> =>
+    getPatientsByDoctorId = (id: string): Observable<PatientEntity[] | void> =>
     this._patientService.findAllByDoctorId(id).pipe()
 }

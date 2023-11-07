@@ -18,6 +18,7 @@ import { Patient } from './schemas/patient.schema';
 import { PatientEntity } from './entities/patient.entity';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
+import { ConsultationEntity } from 'src/consultation/entities/consultation.entity';
 
 @Controller('patient')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -67,4 +68,11 @@ export class PatientController {
     findAllByDoctorId(@Param('id') doctorId: string): Observable<PatientEntity[] | void> {
         return this._patientService.findAllByDoctorId(doctorId);
     }
+
+    @Get(':id/consultations')
+    findConsultations(@Param('id') patientId: string): Observable<ConsultationEntity[] | void> {
+        return this._patientService.getConsultationsByPatientId(patientId);
+    }
+
+    
 }

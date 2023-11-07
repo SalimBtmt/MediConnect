@@ -63,7 +63,7 @@ export class DoctorController {
   }
 
     @Get(':id/patients')
-    getPatients(@Param() params: HandlerParams): Observable<PatientEntity[] | void> {
-        return this._doctorService.getPatients(params.id);
+    findPatients(@Param() params: HandlerParams): Observable<PatientEntity[] | void> {
+        return this._doctorService.getPatientsByDoctorId(params.id);
     } 
 }

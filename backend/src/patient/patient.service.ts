@@ -18,11 +18,15 @@ import { PatientDao } from './dao/patient.dao';
 import { PatientEntity } from './entities/patient.entity';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
+import { ConsultationEntity } from 'src/consultation/entities/consultation.entity';
+import { ConsultationService } from 'src/consultation/consultation.service';
 
 @Injectable()
 export class PatientService {
 
-    constructor(private readonly _patientDao: PatientDao) {}
+    constructor(
+        private readonly _patientDao: PatientDao,
+        private readonly _consultationService: ConsultationService) {}
 
     findAll = (): Observable<PatientEntity[] | void> =>
         this._patientDao.find().pipe(
@@ -178,4 +182,7 @@ export class PatientService {
         map((patients) => (patients || []).map((patient) => new PatientEntity(patient))),
         defaultIfEmpty(undefined)
     )
+
+    getConsultationsByPatientId = (id: string): Observable<ConsultationEntity[] | void> =>
+    this._consultationService.findAllByPatientId(id).pipe()
 }
