@@ -22,8 +22,6 @@ import { UpdatePatientDto } from './dto/update-patient.dto';
 @Injectable()
 export class PatientService {
 
-    private _patient: Patient[];
-
     constructor(private readonly _patientDao: PatientDao) {}
 
     findAll = (): Observable<PatientEntity[] | void> =>
@@ -141,27 +139,6 @@ export class PatientService {
             ),
         ),
     );
-
-    /**
-     * Finds index of array for current patient
-     *
-     * @param {string} id of the patient to find
-     *
-     * @returns {Observable<number>}
-     *
-     * @private
-     */
-    private _findPatientIndexOfList = (id: string): Observable<number> =>
-    from(this._patient).pipe(
-        findIndex((patient: Patient) => patient.id === id),
-        mergeMap((index: number) =>
-        index > -1
-            ? of(index)
-            : throwError(
-                () => new NotFoundException(`Patient with id '${id}' not found`),
-            ),
-    ),
-  );
 
    /**
      * Function to parse date and return timestamp

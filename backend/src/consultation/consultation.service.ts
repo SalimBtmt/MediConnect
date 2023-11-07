@@ -22,8 +22,6 @@ import { UpdateConsultationDto } from './dto/update-consultation.dto';
 @Injectable()
 export class ConsultationService {
 
-    private _consultation: Consultation[];
-
     constructor(private readonly _consultationDao: ConsultationDao) {}
 
     findAll = (): Observable<ConsultationEntity[] | void> =>
@@ -123,27 +121,6 @@ export class ConsultationService {
             ),
         ),
     );
-
-    /**
-     * Finds index of array for current consultation
-     *
-     * @param {string} id of the consultation to find
-     *
-     * @returns {Observable<number>}
-     *
-     * @private
-     */
-    private _findConsultationIndexOfList = (id: string): Observable<number> =>
-    from(this._consultation).pipe(
-        findIndex((consultation: Consultation) => consultation.id === id),
-        mergeMap((index: number) =>
-        index > -1
-            ? of(index)
-            : throwError(
-                () => new NotFoundException(`Consultation with id '${id}' not found`),
-            ),
-    ),
-  );
 
     /**
      * Add consultation with good data in consultations list

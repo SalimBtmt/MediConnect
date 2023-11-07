@@ -22,8 +22,6 @@ import { UpdateDoctorDto } from './dto/update-doctor.dto';
 @Injectable()
 export class DoctorService {
 
-    private _doctor: Doctor[];
-
     constructor(private readonly _doctorDao: DoctorDao) {}
 
     findAll = (): Observable<DoctorEntity[] | void> =>
@@ -141,27 +139,6 @@ export class DoctorService {
             ),
         ),
     );
-
-    /**
-     * Finds index of array for current doctor
-     *
-     * @param {string} id of the doctor to find
-     *
-     * @returns {Observable<number>}
-     *
-     * @private
-     */
-    private _findDoctorIndexOfList = (id: string): Observable<number> =>
-    from(this._doctor).pipe(
-        findIndex((doctor: Doctor) => doctor.id === id),
-        mergeMap((index: number) =>
-        index > -1
-            ? of(index)
-            : throwError(
-                () => new NotFoundException(`Doctor with id '${id}' not found`),
-            ),
-    ),
-  );
 
     /**
      * Add doctor with good data in doctors list
