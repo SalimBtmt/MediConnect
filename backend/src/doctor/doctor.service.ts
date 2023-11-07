@@ -13,14 +13,12 @@ import {
     mergeMap,
     tap,
   } from 'rxjs/operators';
-import { Doctor } from './doctor.types';
 import { DoctorDao } from './dao/doctor.dao';
 import { DoctorEntity } from './entities/doctor.entity';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
 import { PatientEntity } from 'src/patient/entities/patient.entity';
 import { PatientService } from 'src/patient/patient.service';
-import { ConsultationService } from 'src/consultation/consultation.service';
 
 @Injectable()
 export class DoctorService {
@@ -176,6 +174,9 @@ export class DoctorService {
         const dates = date.split('/');
         return new Date(dates[2] + '/' + dates[1] + '/' + dates[0]).getTime();
     };
+
+    private getPatientsIdsByDoctorId = (id: string): Observable<string[]> =>
+    this._patientService.findAllIdsByDoctorId(id).pipe()
 
     getPatientsByDoctorId = (id: string): Observable<PatientEntity[] | void> =>
     this._patientService.findAllByDoctorId(id).pipe()

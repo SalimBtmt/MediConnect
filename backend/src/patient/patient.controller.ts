@@ -74,5 +74,10 @@ export class PatientController {
         return this._patientService.getConsultationsByPatientId(patientId);
     }
 
+    @Get('doctor/:id/ids')
+    findAllIdsByDoctorId(@Param('id') doctorId: string): Observable<string[]> {
+        return this._patientService.findAllIdsByDoctorId(doctorId);
+    }
+
     
 }

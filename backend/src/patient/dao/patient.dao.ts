@@ -73,4 +73,9 @@ export class PatientDao {
         : [{ ...patients, id: patients._id }]
       )
     );
+
+    findIdsByDoctorId = (doctorId: String): Observable<string[]> =>
+    this.findByDoctorId(doctorId).pipe(
+      map((patients) => patients.map((patient) => (patient._id).toString()))
+    )
 }

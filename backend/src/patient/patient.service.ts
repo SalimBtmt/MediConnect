@@ -185,4 +185,7 @@ export class PatientService {
 
     getConsultationsByPatientId = (id: string): Observable<ConsultationEntity[] | void> =>
     this._consultationService.findAllByPatientId(id).pipe()
+    
+    findAllIdsByDoctorId = (doctorId: string) : Observable<string[]> =>
+    this._patientDao.findIdsByDoctorId(doctorId).pipe()
 }
