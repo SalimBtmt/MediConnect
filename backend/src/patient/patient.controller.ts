@@ -65,18 +65,18 @@ export class PatientController {
 
 
     @Get('doctor/:id')
-    findAllByDoctorId(@Param('id') doctorId: string): Observable<PatientEntity[] | void> {
-        return this._patientService.findAllByDoctorId(doctorId);
+    findAllByDoctorId(@Param() params: HandlerParams): Observable<PatientEntity[] | void> {
+        return this._patientService.findAllByDoctorId(params.id);
     }
 
     @Get(':id/consultations')
-    findConsultations(@Param('id') patientId: string): Observable<ConsultationEntity[] | void> {
-        return this._patientService.getConsultationsByPatientId(patientId);
+    findConsultations(@Param() params: HandlerParams): Observable<ConsultationEntity[] | void> {
+        return this._patientService.getConsultationsByPatientId(params.id);
     }
 
     @Get('doctor/:id/ids')
-    findAllIdsByDoctorId(@Param('id') doctorId: string): Observable<string[]> {
-        return this._patientService.findAllIdsByDoctorId(doctorId);
+    findAllIdsByDoctorId(@Param() params: HandlerParams): Observable<string[]> {
+        return this._patientService.findAllIdsByDoctorId(params.id);
     }
 
     

@@ -62,7 +62,7 @@ export class ConsultationController {
   }
 
     @Get('patient/:id')
-    findAllByDoctorId(@Param('id') patientId: string): Observable<ConsultationEntity[] | void> {
-        return this._consultationService.findAllByPatientId(patientId);
+    findAllByDoctorId(@Param() params: HandlerParams): Observable<ConsultationEntity[] | void> {
+        return this._consultationService.findAllByPatientId(params.id);
     }
 }
