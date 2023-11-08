@@ -5,6 +5,8 @@ import { HttpClient,   HttpHeaders,
 import { environment } from 'src/environments/environment';
 
 import { Router, NavigationEnd } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ModifyPatientComponent } from '../components/modify-patient/modify-patient.component';
 
 
 // Interface for the sidenav toggle event
@@ -38,7 +40,7 @@ export class PatientComponent implements OnInit {
   /**
    * Component constructor
    */
-  constructor(private _http: HttpClient, private router: Router) {
+  constructor(private _http: HttpClient, private router: Router,private dialog: MatDialog,) {
 
 
 
@@ -101,6 +103,30 @@ export class PatientComponent implements OnInit {
       styleClass = "auth-page"
     }
     return styleClass;
+  }
+
+  openModifyDialog(patient: Patient): void {
+    const dialogRef = this.dialog.open(ModifyPatientComponent, {
+      width: '400px', // Set the dialog width
+      data: { patient }, // Pass the patient data to the dialog
+    });
+  
+    dialogRef.afterClosed().subscribe((result: Patient) => {
+      if (result) {
+        console.log(result);
+  
+        this._http.put(`http://localhost:3000/patient/${localStorage.getItem("patientId")}`, result).subscribe({
+          next: (response) => {
+            console.log('Patient updated successfully:', response);
+            this._patient = result
+          },
+          error: (error) => {
+            // Handle the error from the API, e.g., show an error message
+            console.error('Error updating patient:', error);
+          },
+        });
+      }
+    });
   }
   
 }

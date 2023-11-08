@@ -21,8 +21,13 @@ export class ModifyPatientComponent {
       lastname: [data.patient.lastname, Validators.required],
       email: [data.patient.email],
       phone: [data.patient.phone],
-      birthDate: [data.patient.birthDate, Validators.required], 
+      birthDate: [new Date(data.patient.birthDate ?? ''), Validators.required],
       bloodtype: [data.patient.bloodtype, Validators.required],
+      address: this.formBuilder.group({
+        street: [data.patient.address.street, ],
+        postalCode: [data.patient.address.postalCode, ],
+        city: [data.patient.address.city,],
+      }),
     });
   }
   

@@ -26,6 +26,21 @@
       <input matInput formControlName="bloodtype" placeholder="Blood Type" required>
     </mat-form-field>
 
+    <div formGroupName="address">
+      <p class="address-title">Address info :</p>
+    <mat-form-field>
+      <input matInput formControlName="street" placeholder="Street" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="postalCode" placeholder="Postal Code" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="city" placeholder="City" required>
+    </mat-form-field>
+  </div>
+
     <button mat-raised-button type="submit" color="primary">Save Changes</button>
   </form>
 </div>
