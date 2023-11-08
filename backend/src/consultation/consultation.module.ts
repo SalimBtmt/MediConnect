@@ -10,6 +10,7 @@ import { Consultation, ConsultationSchema } from './schemas/consultation.schema'
     MongooseModule.forFeature([{ name: Consultation.name, schema: ConsultationSchema}])
   ],
   controllers: [ConsultationController],
-  providers: [ConsultationService, Logger, ConsultationDao]
+  providers: [ConsultationService, Logger, ConsultationDao],
+  exports: [ConsultationService]
 })
 export class ConsultationModule {}

@@ -4,7 +4,7 @@ import {
     NotFoundException,
     UnprocessableEntityException,
   } from '@nestjs/common';
-  import { find, findIndex, from, Observable, of, throwError } from 'rxjs';
+  import { concat, find, findIndex, from, Observable, of, throwError } from 'rxjs';
   import {
     catchError,
     defaultIfEmpty,
@@ -18,13 +18,20 @@ import { DoctorDao } from './dao/doctor.dao';
 import { DoctorEntity } from './entities/doctor.entity';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
+import { PatientEntity } from 'src/patient/entities/patient.entity';
+import { PatientService } from 'src/patient/patient.service';
+import { ConsultationEntity } from 'src/consultation/entities/consultation.entity';
+import { ConsultationService } from 'src/consultation/consultation.service';
+import { log } from 'console';
 
 @Injectable()
 export class DoctorService {
 
-    private _doctor: Doctor[];
-
-    constructor(private readonly _doctorDao: DoctorDao) {}
+    constructor(
+        private readonly _doctorDao: DoctorDao,
+        private readonly _patientService: PatientService,
+        private readonly _consultationService: ConsultationService
+        ) {}
 
     findAll = (): Observable<DoctorEntity[] | void> =>
         this._doctorDao.find().pipe(
@@ -143,27 +150,6 @@ export class DoctorService {
     );
 
     /**
-     * Finds index of array for current doctor
-     *
-     * @param {string} id of the doctor to find
-     *
-     * @returns {Observable<number>}
-     *
-     * @private
-     */
-    private _findDoctorIndexOfList = (id: string): Observable<number> =>
-    from(this._doctor).pipe(
-        findIndex((doctor: Doctor) => doctor.id === id),
-        mergeMap((index: number) =>
-        index > -1
-            ? of(index)
-            : throwError(
-                () => new NotFoundException(`Doctor with id '${id}' not found`),
-            ),
-    ),
-  );
-
-    /**
      * Add doctor with good data in doctors list
      *
      * @param doctor to add
@@ -193,4 +179,31 @@ export class DoctorService {
         const dates = date.split('/');
         return new Date(dates[2] + '/' + dates[1] + '/' + dates[0]).getTime();
     };
+
+    private getPatientsIdsByDoctorId = (id: string): Observable<string[]> =>
+    this._patientService.findAllIdsByDoctorId(id).pipe()
+
+    getAllConsultationsByDoctorId = (id: string): Observable<ConsultationEntity[] | void> => {
+        log("This function, \"getAllConsultationsByDoctorId\", does not work");
+        var consultations : Observable<ConsultationEntity[]>;
+        return consultations;
+    }
+
+//  getAllConsultationsByDoctorId = (id: string): Observable<ConsultationEntity[] | void> => 
+//     from(this.getPatientsIdsByDoctorId(id).pipe(
+//         map((ids) => ids.forEach((id) => this._consultationService.findAllByPatientId(id))))).pipe()
+
+
+//  getAllConsultationsByDoctorId = (id: string): Observable<ConsultationEntity[] | void> => {
+//     var patientIds : string[];
+//     var consultations : Observable<ConsultationEntity[]>;
+//     this.getPatientsIdsByDoctorId(id).subscribe((ids) => patientIds = ids);
+//     patientIds.forEach(id => {
+//         concat(consultations, this._consultationService.findAllByPatientId(id));
+//     })
+//     return consultations;
+// }
+
+    getPatientsByDoctorId = (id: string): Observable<PatientEntity[] | void> =>
+    this._patientService.findAllByDoctorId(id).pipe()
 }

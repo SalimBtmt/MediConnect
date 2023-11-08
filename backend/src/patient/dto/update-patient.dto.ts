@@ -38,4 +38,8 @@ export class UpdatePatientDto {
     @IsString()
     @IsNotEmpty()
     bloodtype: string;
+
+    @IsString()
+    @IsNotEmpty()
+    doctorId: string;
 }

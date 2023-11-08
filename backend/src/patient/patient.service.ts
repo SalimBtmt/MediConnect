@@ -18,13 +18,15 @@ import { PatientDao } from './dao/patient.dao';
 import { PatientEntity } from './entities/patient.entity';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
+import { ConsultationEntity } from 'src/consultation/entities/consultation.entity';
+import { ConsultationService } from 'src/consultation/consultation.service';
 
 @Injectable()
 export class PatientService {
 
-    private _patient: Patient[];
-
-    constructor(private readonly _patientDao: PatientDao) {}
+    constructor(
+        private readonly _patientDao: PatientDao,
+        private readonly _consultationService: ConsultationService) {}
 
     findAll = (): Observable<PatientEntity[] | void> =>
         this._patientDao.find().pipe(
@@ -142,27 +144,6 @@ export class PatientService {
         ),
     );
 
-    /**
-     * Finds index of array for current patient
-     *
-     * @param {string} id of the patient to find
-     *
-     * @returns {Observable<number>}
-     *
-     * @private
-     */
-    private _findPatientIndexOfList = (id: string): Observable<number> =>
-    from(this._patient).pipe(
-        findIndex((patient: Patient) => patient.id === id),
-        mergeMap((index: number) =>
-        index > -1
-            ? of(index)
-            : throwError(
-                () => new NotFoundException(`Patient with id '${id}' not found`),
-            ),
-    ),
-  );
-
    /**
      * Function to parse date and return timestamp
      *
@@ -201,4 +182,10 @@ export class PatientService {
         map((patients) => (patients || []).map((patient) => new PatientEntity(patient))),
         defaultIfEmpty(undefined)
     )
+
+    getConsultationsByPatientId = (id: string): Observable<ConsultationEntity[] | void> =>
+    this._consultationService.findAllByPatientId(id).pipe()
+    
+    findAllIdsByDoctorId = (doctorId: string) : Observable<string[]> =>
+    this._patientDao.findIdsByDoctorId(doctorId).pipe()
 }
