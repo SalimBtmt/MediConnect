@@ -10,7 +10,8 @@ import { PatientModule } from 'src/patient/patient.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Doctor.name, schema: DoctorSchema}]),
-    PatientModule
+    PatientModule,
+    ConsultationModule
   ],
   controllers: [DoctorController],
   providers: [DoctorService, Logger, DoctorDao]

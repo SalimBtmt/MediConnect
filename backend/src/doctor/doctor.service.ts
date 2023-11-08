@@ -4,7 +4,7 @@ import {
     NotFoundException,
     UnprocessableEntityException,
   } from '@nestjs/common';
-  import { find, findIndex, from, Observable, of, throwError } from 'rxjs';
+  import { concat, find, findIndex, from, Observable, of, throwError } from 'rxjs';
   import {
     catchError,
     defaultIfEmpty,
@@ -13,12 +13,16 @@ import {
     mergeMap,
     tap,
   } from 'rxjs/operators';
+import { Doctor } from './doctor.types';
 import { DoctorDao } from './dao/doctor.dao';
 import { DoctorEntity } from './entities/doctor.entity';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
 import { PatientEntity } from 'src/patient/entities/patient.entity';
 import { PatientService } from 'src/patient/patient.service';
+import { ConsultationEntity } from 'src/consultation/entities/consultation.entity';
+import { ConsultationService } from 'src/consultation/consultation.service';
+import { log } from 'console';
 
 @Injectable()
 export class DoctorService {
@@ -26,6 +30,7 @@ export class DoctorService {
     constructor(
         private readonly _doctorDao: DoctorDao,
         private readonly _patientService: PatientService,
+        private readonly _consultationService: ConsultationService
         ) {}
 
     findAll = (): Observable<DoctorEntity[] | void> =>
@@ -177,6 +182,27 @@ export class DoctorService {
 
     private getPatientsIdsByDoctorId = (id: string): Observable<string[]> =>
     this._patientService.findAllIdsByDoctorId(id).pipe()
+
+    getAllConsultationsByDoctorId = (id: string): Observable<ConsultationEntity[] | void> => {
+        log("This function, \"getAllConsultationsByDoctorId\", does not work");
+        var consultations : Observable<ConsultationEntity[]>;
+        return consultations;
+    }
+
+//  getAllConsultationsByDoctorId = (id: string): Observable<ConsultationEntity[] | void> => 
+//     from(this.getPatientsIdsByDoctorId(id).pipe(
+//         map((ids) => ids.forEach((id) => this._consultationService.findAllByPatientId(id))))).pipe()
+
+
+//  getAllConsultationsByDoctorId = (id: string): Observable<ConsultationEntity[] | void> => {
+//     var patientIds : string[];
+//     var consultations : Observable<ConsultationEntity[]>;
+//     this.getPatientsIdsByDoctorId(id).subscribe((ids) => patientIds = ids);
+//     patientIds.forEach(id => {
+//         concat(consultations, this._consultationService.findAllByPatientId(id));
+//     })
+//     return consultations;
+// }
 
     getPatientsByDoctorId = (id: string): Observable<PatientEntity[] | void> =>
     this._patientService.findAllByDoctorId(id).pipe()

@@ -18,6 +18,7 @@ import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
 import { HandlerParams } from 'src/common/validators/handler-params';
 import { PatientEntity } from 'src/patient/entities/patient.entity';
+import { ConsultationEntity } from 'src/consultation/entities/consultation.entity';
 
 @Controller('doctor')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -65,5 +66,10 @@ export class DoctorController {
     @Get(':id/patients')
     findPatients(@Param() params: HandlerParams): Observable<PatientEntity[] | void> {
         return this._doctorService.getPatientsByDoctorId(params.id);
+    } 
+
+    @Get(':id/consultations')
+    findConsultations(@Param() params: HandlerParams): Observable<ConsultationEntity[] | void> {
+        return this._doctorService.getAllConsultationsByDoctorId(params.id);
     } 
 }
