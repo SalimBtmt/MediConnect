@@ -210,6 +210,13 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/material-moment-adapter@^16.2.11":
+  version "16.2.11"
+  resolved "https://registry.yarnpkg.com/@angular/material-moment-adapter/-/material-moment-adapter-16.2.11.tgz#c24a144c04f4208e79d963106a5c41f9668500f9"
+  integrity sha512-vAwWi1GehmqrgOcaAnL6C6EAfr6q6liZqyNyrGC+xaNChqLD2TrzOo9qljIGiYdkRm1p36Fe4BOdBFjh+73EwQ==
+  dependencies:
+    tslib "^2.3.0"
+
 "@angular/material@^16.2.9":
   version "16.2.9"
   resolved "https://registry.npmjs.org/@angular/material/-/material-16.2.9.tgz"
@@ -5555,12 +5562,25 @@ neo-async@^2.6.2:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+ng-pick-datetime@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/ng-pick-datetime/-/ng-pick-datetime-7.0.0.tgz#c78d1cfaee183691a4a44cd4f39c98f9c1d1595f"
+  integrity sha512-SbS+zKX6gOlYpgH8zDSx2EL32ak0Z0y1Ksu1ECP/FiwVBM2mHgbzdfyDYhMmKFB0GKn5yCwXTandR1FCQXe62w==
+
 ngx-cookie-service@^16.0.2:
   version "16.0.2"
   resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-16.0.2.tgz#b3b13c9998bcb4f0faccdfc0e25dbc51c8364ee3"
   integrity sha512-6u1111XD8wR/VqfE7GdN4F2Vg5QKYFwuRr47hGnqZ2If0XDYXOSSrGXPJWSfEnWUjFrWHcebEAjPZDYZ4dutKg==
   dependencies:
     tslib "^2.0.0"
+
+ngx-mat-timepicker@^16.1.2:
+  version "16.1.2"
+  resolved "https://registry.yarnpkg.com/ngx-mat-timepicker/-/ngx-mat-timepicker-16.1.2.tgz#ab5ee20357b1d4b3cc46986b8bc9d82a6213cfad"
+  integrity sha512-Kond5v71wktSu/BEkvSNhRy6h0OW6xA0dKcrZOeNnFNDvfD+1ifO1TeaAVFfBkHcHwqjWr10w14cFIGplPh5yg==
+  dependencies:
+    ts-luxon "^4.3.2"
+    tslib "^2.5.2"
 
 nice-napi@^1.0.2:
   version "1.0.2"
@@ -7023,6 +7043,11 @@ tree-kill@1.2.2:
   resolved "https://registry.npmjs.org/tree-kill/-/tree-kill-1.2.2.tgz"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
 
+ts-luxon@^4.3.2:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/ts-luxon/-/ts-luxon-4.4.0.tgz#d2e5928612c1d24ac836c9d61b94d4b1af2b2ab7"
+  integrity sha512-da38ShNr8dHAXEMg2sBwecOmNus2Fd7Q4h/MAXUve00NVxaeEbR0DMbF2UECBCy22qKPN6F6fypfDdVUniLTEw==
+
 tslib@2.6.1:
   version "2.6.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.1.tgz"
@@ -7033,7 +7058,7 @@ tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.1:
+tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.1, tslib@^2.5.2:
   version "2.6.2"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==

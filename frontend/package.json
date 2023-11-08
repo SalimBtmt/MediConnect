@@ -18,6 +18,7 @@
     "@angular/forms": "^16.2.0",
     "@angular/http": "^7.2.16",
     "@angular/material": "^16.2.9",
+    "@angular/material-moment-adapter": "^16.2.11",
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
@@ -25,7 +26,9 @@
     "@popperjs/core": "^2.11.8",
     "angular-calendar": "^0.31.0",
     "date-fns": "^2.29.3",
+    "ng-pick-datetime": "^7.0.0",
     "ngx-cookie-service": "^16.0.2",
+    "ngx-mat-timepicker": "^16.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
