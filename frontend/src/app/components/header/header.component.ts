@@ -67,6 +67,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('jwt', '');
     localStorage.setItem('token', '');
     localStorage.setItem('user', '');
+    localStorage.setItem('patientId', '');
   
     // Make the HTTP request and navigate after it completes
     this.http.post('http://0.0.0.0:3000/auth/logout', {}).subscribe(

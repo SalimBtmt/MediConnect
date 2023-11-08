@@ -23,6 +23,8 @@ import { SignupComponent } from './signup/signup.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
 
+import {NgxMatTimepickerModule} from 'ngx-mat-timepicker'; 
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,6 +38,8 @@ import { StepperConsultationsComponent } from './components/stepper-consultation
 import { MatStepperModule } from '@angular/material/stepper';
 import { AddConsultationComponent } from './components/add-consultation/add-consultation.component';
 import { ModifyPatientComponent } from './components/modify-patient/modify-patient.component';
+import { AddPatientComponent } from './components/add-patient/add-patient.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,7 @@ import { ModifyPatientComponent } from './components/modify-patient/modify-patie
     StepperConsultationsComponent,
     AddConsultationComponent,
     ModifyPatientComponent,
+    AddPatientComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +70,7 @@ import { ModifyPatientComponent } from './components/modify-patient/modify-patie
     MatButtonModule,
     ReactiveFormsModule,
     MatStepperModule,
+    NgxMatTimepickerModule,
     MatDialogModule,
     MatNativeDateModule,
     MatDatepickerModule,
@@ -79,6 +85,7 @@ import { ModifyPatientComponent } from './components/modify-patient/modify-patie
       useClass: AuthInterceptor,
       multi: true,
     },
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })

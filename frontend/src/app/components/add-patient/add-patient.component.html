@@ -1,7 +1,7 @@
-<h1 mat-dialog-title>Modify Patient</h1>
+<h1 mat-dialog-title>Add Patient</h1>
 
 <div mat-dialog-content>
-  <form [formGroup]="modifyForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input matInput formControlName="firstname" placeholder="First Name" required>
     </mat-form-field>
@@ -19,7 +19,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput formControlName="birthDate" placeholder="Birth Date" type="date">
+      <input matInput formControlName="birthDate" placeholder="Birth Date" required type="date">
     </mat-form-field>
 
     <mat-form-field>
@@ -27,21 +27,21 @@
     </mat-form-field>
 
     <div formGroupName="address">
-      <p class="address-title">Address info :</p>
-    <mat-form-field>
-      <input matInput formControlName="street" placeholder="Street" required>
-    </mat-form-field>
+        <p class="address-title">Address info :</p>
+      <mat-form-field>
+        <input matInput formControlName="street" placeholder="Street" required>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput formControlName="postalCode" placeholder="Postal Code" required>
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="postalCode" placeholder="Postal Code" required>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput formControlName="city" placeholder="City" required>
-    </mat-form-field>
-  </div>
+      <mat-form-field>
+        <input matInput formControlName="city" placeholder="City" required>
+      </mat-form-field>
+    </div>
 
-    <button mat-raised-button type="submit" color="primary">Save Changes</button>
+    <button mat-raised-button type="submit" color="primary">Add Patient</button>
   </form>
 </div>
 

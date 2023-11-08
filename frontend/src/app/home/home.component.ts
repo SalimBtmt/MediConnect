@@ -9,6 +9,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModifyPatientComponent } from '../components/modify-patient/modify-patient.component';
+import { AddPatientComponent } from '../components/add-patient/add-patient.component';
+
 
 // Interface for the sidenav toggle event
 interface SideNavToggle {
@@ -25,6 +27,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   isSignInOrSignUpRoute: boolean = false;
 
   title = 'frontend';
+
+  private doctorId: string | null = null;
 
   // Flag to track the collapse state of the sidenav
   isSideNavCollappsed: boolean = false;
@@ -50,7 +54,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private _liveAnnouncer: LiveAnnouncer,
     private router: Router,
     private cookieService: CookieService, 
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this._backendURL = {};
 
@@ -68,6 +72,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.isSignInOrSignUpRoute = ['/signin', '/signup'].includes(event.url);
       }
     });
+
+    const jsonString = localStorage.getItem('user');
+
+    if (jsonString !== null) {
+      const userObject = JSON.parse(jsonString);
+      this.doctorId = userObject.id;
+    }
   }
 
   ngOnInit(): void {
@@ -141,14 +152,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
       .delete(
         this._backendURL.onePatient.replace(
           ':id',
-          '654031be74926abbaed1eda1' /* patient.id */
+          patient.id/* patient.id */
         )
       )
       .subscribe({
         next: () => {
           // Remove the patient from the local array
           this._patients = this._patients.filter(
-            (p: Patient) => p.id !== '654031be74926abbaed1eda1' /* patient.id */
+            (p: Patient) => p.id !== patient.id /* patient.id */
           );
 
           // Update the MatTable data source
@@ -187,11 +198,49 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onTableRowClick(row: Patient) {
+    console.log(row)
     if (row && row.id) {
       localStorage.setItem('patientId', row.id);
       this.router.navigate(['/patient']);
     }
   }
+
+  openAddPatientDialog(): void {
+    const dialogRef = this.dialog.open(AddPatientComponent, {
+      width: '400px', // Set the dialog width
+    });
+  
+    dialogRef.afterClosed().subscribe((result: Patient) => {
+      if (result) {
+        // Add the doctorId to the patient data
+        const patientWithDoctorId = { ...result, doctorId: this.doctorId };
+    
+        console.log(patientWithDoctorId);
+    
+        this._http.post('http://localhost:3000/patient', patientWithDoctorId).subscribe({
+          next: (response: any) => {
+            console.log('Patient added successfully:', response);
+    
+            // Set the doctorId for the newly added patient
+            const addedPatient = { ...result, doctorId: this.doctorId };
+            
+            // Push the patient into the _patients array
+            this._patients.push(addedPatient);
+    
+            this.dataSource.data = this._patients;
+
+            window.location.reload();
+          },
+          error: (error) => {
+            console.error('Error adding patient:', error);
+          },
+        });
+      }
+    });
+    
+    
+  }
+  
 
   openModifyDialog(patient: Patient): void {
     const dialogRef = this.dialog.open(ModifyPatientComponent, {

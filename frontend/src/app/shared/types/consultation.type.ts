@@ -11,4 +11,6 @@ export type Consultation = {
     comment: string;
 
     prescription: string;
+
+    patientId: string;
 }

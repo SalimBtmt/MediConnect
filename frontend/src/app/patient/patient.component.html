@@ -7,6 +7,7 @@
 [collapsed]="isSideNavCollappsed"
 [screenWidth]="screenWidth"
 ></app-header>
+
 <div class="body" [ngClass]="getBodyClass()">
 <div class="title"></div>
 <div class="container-patient">
@@ -45,7 +46,7 @@
           <h2>Information contact</h2>
           <div class="top-left-container">
             <div class="top-left-left">Adresse</div>
-            <div class="top-left-right">{{ patient.address.street }}, {{ patient.address.city }} {{ patient.address.postalCode }}</div>
+            <div class="top-left-right">{{ patient.address.street || "" }}, {{ patient.address.city }} {{ patient.address.postalCode }}</div>
           </div>
           <mat-divider></mat-divider>
           <div class="top-left-container">
@@ -60,6 +61,9 @@
         </div>
       </mat-card-content>
     </mat-card>
+
+    <button mat-raised-button class="modify-button" (click)="openModifyDialog(patient)">Modify Patient</button>
+
   </div>
   <div class="right">
     <mat-card class="card-right">

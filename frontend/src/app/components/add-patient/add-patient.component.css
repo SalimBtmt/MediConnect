@@ -1,0 +1,59 @@
+/* Styling for the Add Patient dialog */
+h1.mat-dialog-title {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px;
+  margin: 0;
+  font-size: 24px;
+}
+
+.mat-dialog-content {
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* Style the address title */
+.address-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+/* Style the postal code and city fields in the same line */
+.address-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.postal-code,
+.city {
+  width: 48%;
+}
+
+/* Style the buttons */
+.mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Style the Submit button */
+button[type="submit"] {
+  background-color: #1976d2;
+  color: white;
+}
+
+/* Style the Cancel button */
+button[type="button"] {
+  background-color: #ccc;
+  color: white;
+}
+
+/* Hover effect for buttons */
+button[type="submit"]:hover, button[type="button"]:hover {
+  opacity: 0.8;
+}

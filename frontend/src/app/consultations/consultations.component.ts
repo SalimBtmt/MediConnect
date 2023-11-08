@@ -10,6 +10,7 @@ import {
   CalendarEvent,
   CalendarEventAction,
   CalendarEventTimesChangedEvent,
+  CalendarEventTitleFormatter,
   CalendarView,
 } from 'angular-calendar';
 import {
@@ -22,6 +23,7 @@ import {
   isSameMonth,
   addHours,
 } from 'date-fns';
+import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -47,7 +49,13 @@ const colors: Record<string, EventColor> = {
   selector: 'app-consultations',
   templateUrl: './consultations.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./consultations.component.css']
+  styleUrls: ['./consultations.component.css'],
+  providers: [
+    {
+      provide: CalendarEventTitleFormatter,
+      useClass: CustomEventTitleFormatter,
+    },
+  ],
 })
 export class ConsultationsComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any> | undefined;
@@ -56,23 +64,6 @@ export class ConsultationsComponent implements OnInit {
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   modalData: { action: string; event: CalendarEvent; } | undefined;
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      },
-    },
-  ];
   refresh = new Subject<void>();
   events: CalendarEvent[] = [];
   /* events: CalendarEvent[] = [
@@ -166,13 +157,7 @@ export class ConsultationsComponent implements OnInit {
           start: new Date(item.dateStart),
           end: new Date(item.dateEnd),
           title: item.motive,
-          actions: this.actions,
-          allDay: true,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true,
-          },
-          draggable: true,
+          allDay: false,
         };
       });
     });
@@ -191,6 +176,10 @@ export class ConsultationsComponent implements OnInit {
   ngOnInit(): void {
     this._http.get<Consultation[]>(this._backendURL.allConsultations)
       //.subscribe({ next: (consultation: Consultation) => this._consultations = consultation[1] });
+  }
+
+  eventClicked({ event }: { event: CalendarEvent }): void {
+    console.log('Event clicked', event);
   }
 
   // Method to determine the CSS class for the body element
@@ -247,34 +236,8 @@ export class ConsultationsComponent implements OnInit {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        //color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
-  }
 
   setView(view: CalendarView) {
     this.view = view;
