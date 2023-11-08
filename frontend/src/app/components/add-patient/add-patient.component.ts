@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddressType } from '../../shared/types/address.type'; // Replace with the actual path to your PersonAddressDto
@@ -9,6 +9,8 @@ import { AddressType } from '../../shared/types/address.type'; // Replace with t
   styleUrls: ['./add-patient.component.css'],
 })
 export class AddPatientComponent {
+
+  @Output() addConsultationEvent = new EventEmitter<any>();
   addForm: FormGroup;
 
   constructor(

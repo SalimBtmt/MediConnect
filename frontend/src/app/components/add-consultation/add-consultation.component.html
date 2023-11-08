@@ -1,27 +1,63 @@
 <div class="form-container">
   <form [formGroup]="consultationForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
-      <input matInput formControlName="dateStart" placeholder="Date Start" [matDatepicker]="dateStartPicker">
-      <mat-datepicker-toggle matSuffix [for]="dateStartPicker"></mat-datepicker-toggle>
-      <mat-datepicker #dateStartPicker></mat-datepicker>
+      <input
+        matInput
+        [matDatepicker]="datepicker"
+        formControlName="dateStart"
+        placeholder="Date Start"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="datepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepicker></mat-datepicker>
     </mat-form-field>
-  
+
     <mat-form-field>
-      <input matInput formControlName="duration" placeholder="Duration (minutes)" type="number" required>
+      <input
+        matInput
+        [format]="24"
+        [ngxMatTimepicker]="pickerF"
+        formControlName="timeStart"
+        placeholder="Time Start"
+      />
+      <ngx-mat-timepicker-toggle matSuffix [for]="pickerF"></ngx-mat-timepicker-toggle>
+      <ngx-mat-timepicker #pickerF></ngx-mat-timepicker>
     </mat-form-field>
-  
+
     <mat-form-field>
-      <input matInput formControlName="motive" placeholder="Motive" required>
+      <input
+        matInput
+        formControlName="duration"
+        placeholder="Duration (minutes)"
+        type="number"
+        required
+      />
     </mat-form-field>
-  
+
     <mat-form-field>
-      <textarea matInput formControlName="comment" placeholder="Comment"></textarea>
+      <input matInput formControlName="motive" placeholder="Motive" required />
     </mat-form-field>
-  
+
     <mat-form-field>
-      <textarea matInput formControlName="prescription" placeholder="Prescription"></textarea>
+      <textarea
+        matInput
+        formControlName="comment"
+        placeholder="Comment"
+      ></textarea>
     </mat-form-field>
-  
-    <button mat-raised-button type="submit" color="primary">Add Consultation</button>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        formControlName="prescription"
+        placeholder="Prescription"
+      ></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" color="primary">
+      Add Consultation
+    </button>
   </form>
 </div>
