@@ -1,136 +1,165 @@
-  <app-sidenav
-    *ngIf="!isSignInOrSignUpRoute"
-    (onToggleSideNav)="onToggleSideNav($event)"
-  ></app-sidenav>
-  <app-header
-    *ngIf="!isSignInOrSignUpRoute"
-    [collapsed]="isSideNavCollappsed"
-    [screenWidth]="screenWidth"
-  ></app-header>
+<app-sidenav
+  *ngIf="!isSignInOrSignUpRoute"
+  (onToggleSideNav)="onToggleSideNav($event)"
+></app-sidenav>
+<app-header
+  *ngIf="!isSignInOrSignUpRoute"
+  [collapsed]="isSideNavCollappsed"
+  [screenWidth]="screenWidth"
+></app-header>
 <div class="body" [ngClass]="getBodyClass()">
-<div class="container-home">
-  <div class="left">
-    <h2>Liste des patients</h2>
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      matSort
-      (matSortChange)="announceSortChange($event)"
-      class="mat-elevation-z8"
-      style=" cursor: pointer;"
-    >
-    <style>
-      tr:hover {
-        background-color: #f0f0f0; /* Background color on hover */
-      }
-    </style>
-      <ng-container matColumnDef="firstname">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          sortActionDescription="Sort by firstname"
+  <div class="container-home">
+    <div class="left">
+      <div class="left-top">
+        <h2>Liste des patients</h2>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="openAddPatientDialog()"
         >
-          Firstname
-        </th>
-        <td mat-cell *matCellDef="let element" (click)="onTableRowClick(element)">{{ element.firstname }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="lastname">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          sortActionDescription="Sort by lastname"
-        >
-          Lastname
-        </th>
-        <td mat-cell *matCellDef="let element" (click)="onTableRowClick(element)">{{ element.lastname }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="birthDate">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          sortActionDescription="Sort by birthDate"
-        >
-          Birth date
-        </th>
-        <td mat-cell *matCellDef="let element" (click)="onTableRowClick(element)">{{ element.birthDate | date:'EEEE dd/MM/yyyy':'fr' }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="bloodtype">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          sortActionDescription="Sort by bloodtype"
-        >
-          Blood type
-        </th>
-        <td mat-cell *matCellDef="let element" (click)="onTableRowClick(element)">{{ element.bloodtype }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element">
-          <button
-            class="deleteButton"
-            mat-icon-button
-            color="warn"
-            (click)="deletePatient(element)"
+          Ajouter un patient
+        </button>
+      </div>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="announceSortChange($event)"
+        class="mat-elevation-z8"
+        style="cursor: pointer"
+      >
+        <style>
+          tr:hover {
+            background-color: #f0f0f0; /* Background color on hover */
+          }
+        </style>
+        <ng-container matColumnDef="firstname">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by firstname"
           >
-            <i class="fa fa fa-trash"></i>
-          </button>
-          <button
-            mat-icon-button
-            (click)="openModifyDialog(element)"
+            Firstname
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            (click)="onTableRowClick(element)"
           >
-          Modify
-          </button>
-        </td>
-      </ng-container>
+            {{ element.firstname }}
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <ng-container matColumnDef="lastname">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by lastname"
+          >
+            Lastname
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            (click)="onTableRowClick(element)"
+          >
+            {{ element.lastname }}
+          </td>
+        </ng-container>
 
-    </table>
+        <ng-container matColumnDef="birthDate">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by birthDate"
+          >
+            Birth date
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            (click)="onTableRowClick(element)"
+          >
+            {{ element.birthDate | date : "EEEE dd/MM/yyyy" : "fr" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bloodtype">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+            sortActionDescription="Sort by bloodtype"
+          >
+            Blood type
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            (click)="onTableRowClick(element)"
+          >
+            {{ element.bloodtype }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              class="deleteButton"
+              mat-icon-button
+              color="warn"
+              (click)="deletePatient(element)"
+            >
+              <i class="fa fa fa-trash"></i>
+            </button>
+            <button mat-icon-button (click)="openModifyDialog(element)">
+              Modify
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <div class="right">
+      <mat-card>
+        <mat-card-content>
+          <div class="card-content-left">
+            <i class="fa fa-user-circle"></i>
+          </div>
+          <div class="card-content-right">
+            <p id="number">{{ dataSource.data.length }}</p>
+            <p>Total patients</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <div class="card-content-left">
+            <i class="fa fa-user-circle"></i>
+          </div>
+          <div class="card-content-right">
+            <p id="number">{{ dataSource.data.length }}</p>
+            <p>Total patients</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <div class="card-content-left">
+            <i class="fa fa-user-circle"></i>
+          </div>
+          <div class="card-content-right">
+            <p id="number">{{ dataSource.data.length }}</p>
+            <p>Total patients</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
-  <div class="right">
-    <mat-card>
-      <mat-card-content>
-        <div class="card-content-left">
-          <i class="fa fa-user-circle"></i>
-        </div>
-        <div class="card-content-right">
-          <p id="number">{{ dataSource.data.length }}</p>
-          <p>Total patients</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-content>
-        <div class="card-content-left">
-          <i class="fa fa-user-circle"></i>
-        </div>
-        <div class="card-content-right">
-          <p id="number">{{ dataSource.data.length }}</p>
-          <p>Total patients</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-content>
-        <div class="card-content-left">
-          <i class="fa fa-user-circle"></i>
-        </div>
-        <div class="card-content-right">
-          <p id="number">{{ dataSource.data.length }}</p>
-          <p>Total patients</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
 </div>
